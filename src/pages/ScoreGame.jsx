@@ -18,7 +18,7 @@ import styles from './ScoreGame.module.css';
 
 export default function ScoreGame({ onNavigate }) {
   const [currentGame, setCurrentGame, removeCurrentGame] = useLocalStorage('currentGame', null);
-  const [completedGames, setCompletedGames] = useLocalStorage('dugout_completed_games', []);
+  const [, setCompletedGames] = useLocalStorage('dugout_completed_games', []);
   const [activeGroup, setActiveGroup] = useState(0);
 
   const game = currentGame || MOCK_CURRENT_GAME;

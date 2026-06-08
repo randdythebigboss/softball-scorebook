@@ -38,14 +38,14 @@ export default function Stats() {
         ))}
       </div>
 
-      {tab === 0 && <TeamStats allGames={allGames} hasRealGames={hasRealGames} />}
-      {tab === 1 && <PlayerStats allGames={allGames} hasRealGames={hasRealGames} />}
+      {tab === 0 && <TeamStats allGames={allGames} />}
+      {tab === 1 && <PlayerStats allGames={allGames} />}
       {tab === 2 && <GameStats allGames={allGames} />}
     </div>
   );
 }
 
-function TeamStats({ allGames, hasRealGames }) {
+function TeamStats({ allGames }) {
   const realStats = buildTeamStatsFromGames(allGames);
 
   const teams = MOCK_TEAMS.map(team => {
@@ -94,7 +94,7 @@ function TeamStats({ allGames, hasRealGames }) {
   );
 }
 
-function PlayerStats({ allGames, hasRealGames }) {
+function PlayerStats({ allGames }) {
   const [sortBy, setSortBy] = useState('avg');
   const realPlayerStats = buildPlayerStatsFromGames(allGames);
 

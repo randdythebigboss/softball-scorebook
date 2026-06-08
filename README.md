@@ -4,7 +4,7 @@ Mobile-first web app for keeping score at informal Dominican softball games. Bui
 
 ## Tech Stack
 
-- **React 18** + **Vite** — component-based UI with fast dev server
+- **React 19** + **Vite** — component-based UI with fast dev server
 - **CSS Modules** — scoped styles, zero runtime CSS-in-JS overhead
 - **localStorage** — all data lives in the browser; no backend, no account
 - **lucide-react** — icon library

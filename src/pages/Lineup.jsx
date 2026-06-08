@@ -1,5 +1,4 @@
 import { MOCK_TEAMS, MOCK_PLAYERS, MOCK_HOME_LINEUP, MOCK_AWAY_LINEUP } from '../data/mockData';
-import { POSITIONS } from '../data/playCodes';
 import SectionHeader from '../components/ui/SectionHeader';
 import Button from '../components/ui/Button';
 import styles from './Lineup.module.css';
