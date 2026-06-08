@@ -1,4 +1,4 @@
-// Mock data for Dugout Scorebook prototype
+// Mock data for Centro Verón Scorebook prototype
 // TODO: Replace with real API/database calls in future version
 
 export const MOCK_TEAMS = [
@@ -9,7 +9,7 @@ export const MOCK_TEAMS = [
     city: 'Santo Domingo',
     color: '#1a2744',
     accentColor: '#f97316',
-    isMainTeam: true,
+    isMainTeam: false,
     stats: { gamesPlayed: 12, wins: 8, losses: 4, runsScored: 87, runsAllowed: 62 },
   },
   {
@@ -19,7 +19,7 @@ export const MOCK_TEAMS = [
     city: 'Punta Cana',
     color: '#166534',
     accentColor: '#fbbf24',
-    isMainTeam: false,
+    isMainTeam: true,
     stats: { gamesPlayed: 12, wins: 7, losses: 5, runsScored: 74, runsAllowed: 68 },
   },
   {

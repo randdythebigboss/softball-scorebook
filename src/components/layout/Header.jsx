@@ -6,9 +6,9 @@ export default function Header({ title, onMenuToggle }) {
     <header className={styles.header}>
       <div className={styles.inner}>
         <div className={styles.brand}>
-          <div className={styles.logo}>LT</div>
+          <div className={styles.logo}>CV</div>
           <div className={styles.brandText}>
-            <span className={styles.appName}>Dugout</span>
+            <span className={styles.appName}>Centro Verón</span>
             <span className={styles.appSub}>Scorebook</span>
           </div>
         </div>

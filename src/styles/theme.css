@@ -1,13 +1,22 @@
 :root {
-  --color-primary: #1a2744;
-  --color-primary-dark: #111b33;
-  --color-primary-light: #243460;
-  --color-accent: #f97316;
-  --color-accent-dark: #ea6c0a;
-  --color-accent-light: #fb923c;
-  --color-secondary: #f1f5f9;
-  --color-white: #ffffff;
-  --color-gray-50: #f8fafc;
+  /* ── Brand: Centro Verón ─────────────────────────────────────────────────── */
+  --color-primary:       #166534;   /* Forest green — main brand color          */
+  --color-primary-dark:  #052E16;   /* Deep green — dark bg, header             */
+  --color-primary-light: #22C55E;   /* Bright green — gradients, highlights     */
+  --color-accent:        #FBBF24;   /* Gold — emblems, badges, active states    */
+  --color-accent-dark:   #F59E0B;   /* Amber — hover on accent elements         */
+  --color-accent-light:  #FDE68A;   /* Light gold — icon tints on dark surfaces */
+  --color-secondary:     #FFFFFF;
+
+  /* ── Semantic surface tokens ─────────────────────────────────────────────── */
+  --color-bg:      #F7F8FB;
+  --color-surface: #FFFFFF;
+  --color-text:    #0F172A;
+  --color-muted:   #64748B;
+  --color-white:   #ffffff;
+
+  /* ── Gray scale (used throughout components) ─────────────────────────────── */
+  --color-gray-50:  #f8fafc;
   --color-gray-100: #f1f5f9;
   --color-gray-200: #e2e8f0;
   --color-gray-300: #cbd5e1;
@@ -17,37 +26,52 @@
   --color-gray-700: #334155;
   --color-gray-800: #1e293b;
   --color-gray-900: #0f172a;
-  --color-success: #22c55e;
-  --color-warning: #f59e0b;
-  --color-danger: #ef4444;
-  --color-info: #3b82f6;
 
+  /* ── Status colors ────────────────────────────────────────────────────────── */
+  --color-success: #16A34A;
+  --color-warning: #F59E0B;
+  --color-danger:  #DC2626;
+  --color-info:    #3b82f6;
+
+  /* ── Typography ───────────────────────────────────────────────────────────── */
   --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  /* ── Radius ───────────────────────────────────────────────────────────────── */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
   --radius-full: 9999px;
 
+  /* Semantic aliases — backward-compatible */
+  --radius-card: var(--radius-lg);
+  --radius-pill: var(--radius-full);
+
+  /* ── Shadows ──────────────────────────────────────────────────────────────── */
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
   --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
   --shadow-xl: 0 16px 40px rgba(0,0,0,0.16);
 
-  --header-height: 60px;
+  /* Semantic alias */
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
+
+  /* ── Layout ───────────────────────────────────────────────────────────────── */
+  --header-height:     60px;
   --bottom-nav-height: 64px;
   --content-max-width: 1200px;
 
+  /* ── Transitions ──────────────────────────────────────────────────────────── */
   --transition-fast: 150ms ease;
   --transition-base: 200ms ease;
   --transition-slow: 300ms ease;
 
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
+  /* ── Spacing ──────────────────────────────────────────────────────────────── */
+  --spacing-xs:  4px;
+  --spacing-sm:  8px;
+  --spacing-md:  16px;
+  --spacing-lg:  24px;
+  --spacing-xl:  32px;
   --spacing-2xl: 48px;
 }

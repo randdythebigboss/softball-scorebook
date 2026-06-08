@@ -1,8 +1,8 @@
-# Dugout Scorebook — Product Vision
+# Centro Verón Scorebook — Product Vision
 
 ## Purpose
 
-Dugout Scorebook is a mobile-first web application for tracking informal Dominican softball games. It replaces paper scorebooks with a fast, visual, and reliable digital tool designed for real use on the field — during a live game, with a phone in hand.
+Centro Verón Scorebook is a mobile-first web application for tracking informal Dominican softball games. Globally branded for Centro Verón, it supports scorekeeping for multiple teams. It replaces paper scorebooks with a fast, visual, and reliable digital tool designed for real use on the field — during a live game, with a phone in hand.
 
 ## Target User
 

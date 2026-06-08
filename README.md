@@ -1,6 +1,6 @@
-# Dugout Scorebook
+# Centro Verón Scorebook
 
-Mobile-first web app for keeping score at informal Dominican softball games. Built for the dugout, not the front office — fast, offline, no login required.
+Mobile-first web app for keeping score at informal Dominican softball games. Globally branded for Centro Verón, while supporting scorekeeping for multiple teams. Built for the dugout, not the front office — fast, offline, no login required.
 
 ## Tech Stack
 

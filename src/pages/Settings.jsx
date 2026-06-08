@@ -28,22 +28,22 @@ export default function Settings() {
 
         <div className={styles.field}>
           <label className={styles.label}>Nombre de la App</label>
-          <input className={styles.input} defaultValue="Dugout Scorebook" />
+          <input className={styles.input} defaultValue="Centro Verón Scorebook" />
         </div>
 
         <div className={styles.colorRow}>
           <div className={styles.field}>
             <label className={styles.label}>Color Primario</label>
             <div className={styles.colorPick}>
-              <input type="color" defaultValue="#1a2744" className={styles.colorInput} />
-              <span className={styles.colorHex}>#1a2744</span>
+              <input type="color" defaultValue="#166534" className={styles.colorInput} />
+              <span className={styles.colorHex}>#166534</span>
             </div>
           </div>
           <div className={styles.field}>
             <label className={styles.label}>Color Acento</label>
             <div className={styles.colorPick}>
-              <input type="color" defaultValue="#f97316" className={styles.colorInput} />
-              <span className={styles.colorHex}>#f97316</span>
+              <input type="color" defaultValue="#FBBF24" className={styles.colorInput} />
+              <span className={styles.colorHex}>#FBBF24</span>
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@ export default function Settings() {
         <div className={styles.field}>
           <label className={styles.label}>Logo del Equipo</label>
           <div className={styles.logoUpload}>
-            <div className={styles.logoPreview}>LT</div>
+            <div className={styles.logoPreview}>CV</div>
             <div className={styles.uploadInfo}>
               <button className={styles.uploadBtn} disabled>
                 <Upload size={14} /> Subir Logo (próximamente)
@@ -68,12 +68,12 @@ export default function Settings() {
 
         <div className={styles.field}>
           <label className={styles.label}>Nombre del Equipo</label>
-          <input className={styles.input} defaultValue="Los Titanes" />
+          <input className={styles.input} defaultValue="Centro Verón" />
         </div>
 
         <div className={styles.field}>
           <label className={styles.label}>Ciudad / Municipio</label>
-          <input className={styles.input} defaultValue="Santo Domingo" />
+          <input className={styles.input} defaultValue="Punta Cana" />
         </div>
       </Card>
 
@@ -134,7 +134,7 @@ export default function Settings() {
       </Card>
 
       <div className={styles.version}>
-        Dugout Scorebook · v1.0 Prototipo · 2026
+        Centro Verón Scorebook · v1.0 Prototipo · 2026
       </div>
     </div>
   );

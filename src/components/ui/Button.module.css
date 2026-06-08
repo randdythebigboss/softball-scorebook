@@ -25,16 +25,16 @@
 
 /* Variants */
 .primary {
-  background: var(--color-accent);
-  color: var(--color-white);
-}
-.primary:hover:not(:disabled) { background: var(--color-accent-dark); }
-
-.secondary {
   background: var(--color-primary);
   color: var(--color-white);
 }
-.secondary:hover:not(:disabled) { background: var(--color-primary-light); }
+.primary:hover:not(:disabled) { background: var(--color-primary-dark); }
+
+.secondary {
+  background: var(--color-primary-dark);
+  color: var(--color-white);
+}
+.secondary:hover:not(:disabled) { background: var(--color-primary); }
 
 .outline {
   background: transparent;

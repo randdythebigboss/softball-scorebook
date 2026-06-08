@@ -27,13 +27,14 @@
   height: 40px;
   border-radius: 50%;
   background: var(--color-accent);
-  color: white;
-  font-weight: 800;
-  font-size: 14px;
+  color: var(--color-primary-dark);
+  font-weight: 900;
+  font-size: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(251,191,36,0.45);
 }
 
 .appName {

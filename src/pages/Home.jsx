@@ -10,7 +10,7 @@ import styles from './Home.module.css';
 
 const mainTeam = MOCK_TEAMS.find(t => t.isMainTeam);
 const recentGames = MOCK_GAMES.slice(0, 3);
-const topPlayers = getTopPlayers(MOCK_PLAYERS.filter(p => p.teamId === 'team-titanes'), 'avg', 3);
+const topPlayers = getTopPlayers(MOCK_PLAYERS.filter(p => p.teamId === mainTeam?.id), 'avg', 3);
 
 export default function Home({ onNavigate, currentGame }) {
   const hasCurrentGame = currentGame && currentGame.status === 'in_progress';
@@ -20,7 +20,7 @@ export default function Home({ onNavigate, currentGame }) {
       {/* Hero card */}
       <div className={styles.hero}>
         <div className={styles.heroContent}>
-          <div className={styles.heroLogo}>LT</div>
+          <div className={styles.heroLogo}>CV</div>
           <div>
             <h1 className={styles.heroTeam}>{mainTeam?.name}</h1>
             <p className={styles.heroSub}>Temporada 2026 · Softball Informal</p>

@@ -17,9 +17,9 @@ export default function SideNav({ currentPage, onNavigate, isOpen }) {
   return (
     <aside className={`${styles.side} ${isOpen ? styles.open : ''}`}>
       <div className={styles.brand}>
-        <div className={styles.logo}>LT</div>
+        <div className={styles.logo}>CV</div>
         <div>
-          <div className={styles.appName}>Dugout</div>
+          <div className={styles.appName}>Centro Verón</div>
           <div className={styles.appSub}>Scorebook</div>
         </div>
       </div>
