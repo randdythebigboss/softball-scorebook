@@ -6,6 +6,65 @@
   border: 1px solid rgba(255,255,255,0.05);
 }
 
+/* ── Big score strip — most prominent element ── */
+.scoreStrip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  padding: 14px var(--spacing-xl);
+  background: rgba(0,0,0,0.14);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.teamBlock {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.teamBlockRight { flex-direction: row-reverse; }
+
+.teamAbr {
+  font-size: 14px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: color var(--transition-fast);
+}
+
+.bigScore {
+  font-size: 50px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.35);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  transition: color var(--transition-fast);
+}
+
+/* Batting team — bright */
+.teamBatting .teamAbr { color: rgba(255,255,255,0.9); }
+.teamBatting .bigScore { color: white; }
+
+.stripCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--spacing-xs);
+}
+
+.halfTag {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  background: rgba(251,191,36,0.1);
+  border-radius: var(--radius-full);
+}
+
+/* ── Line score table — secondary, scrollable ── */
 .tableWrap {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -72,9 +131,7 @@
   color: white !important;
 }
 
-.batting td {
-  background: rgba(251,191,36,0.1);
-}
+.batting td { background: rgba(251,191,36,0.1); }
 
 /* ── Meta bar: inning + batting team + outs ── */
 .meta {

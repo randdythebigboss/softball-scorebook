@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Scoreboard from '../components/scorekeeping/Scoreboard';
-import BasesDiamond from '../components/scorekeeping/BasesDiamond';
-import CurrentBatterCard from '../components/scorekeeping/CurrentBatterCard';
+import CurrentSituation from '../components/scorekeeping/CurrentSituation';
 import PlayResultButton from '../components/scorekeeping/PlayResultButton';
 import { MOCK_TEAMS, MOCK_PLAYERS, MOCK_HOME_LINEUP, MOCK_AWAY_LINEUP, MOCK_CURRENT_GAME } from '../data/mockData';
 import { PLAY_CODES, SCORING_BUTTONS } from '../data/playCodes';
@@ -27,7 +26,7 @@ const QUICK_NOTE_CHIPS = [
   'Comentario del inning',
 ];
 
-// Maps PLAY_CODES[code].category → quick-play button CSS class
+// Maps PLAY_CODES[code].category → CSS class
 const QP_CLASS = {
   hit: styles.qpHit,
   walk: styles.qpWalk,
@@ -36,6 +35,12 @@ const QP_CLASS = {
   sacrifice: styles.qpSpecial,
   other: styles.qpSpecial,
 };
+
+// Called inside event handler — safe to use Date outside render
+function nowTime() {
+  const d = new Date();
+  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
 
 export default function ScoreGame({ onNavigate }) {
   const [currentGame, setCurrentGame, removeCurrentGame] = useLocalStorage('currentGame', null);
@@ -47,6 +52,7 @@ export default function ScoreGame({ onNavigate }) {
 
   const homeTeam = MOCK_TEAMS.find(t => t.id === game.homeTeamId);
   const awayTeam  = MOCK_TEAMS.find(t => t.id === game.awayTeamId);
+  const battingTeam = game.isTopInning ? awayTeam : homeTeam;
 
   const homeLineup = (game.homeLineup && game.homeLineup.length > 0) ? game.homeLineup : MOCK_HOME_LINEUP;
   const awayLineup = (game.awayLineup && game.awayLineup.length > 0) ? game.awayLineup : MOCK_AWAY_LINEUP;
@@ -87,7 +93,7 @@ export default function ScoreGame({ onNavigate }) {
   /* ── Scorebook notes ── */
   const notes = game.scorebookNotes || [];
 
-  // Chips append to the textarea — user still decides when to save
+  // Chips append to textarea — user explicitly presses Guardar
   const appendChip = (chip) => {
     setNoteText(prev => prev.trim() ? `${prev.trim()} · ${chip}` : chip);
   };
@@ -99,6 +105,7 @@ export default function ScoreGame({ onNavigate }) {
       id: `note-${noteSeq}`,
       inning: game.currentInning,
       isTopInning: game.isTopInning,
+      time: nowTime(),
       text: text.trim(),
     };
     saveGame({ ...game, scorebookNotes: [...notes, note], noteSeq });
@@ -116,30 +123,29 @@ export default function ScoreGame({ onNavigate }) {
   return (
     <div className={styles.page}>
 
-      {/* Scoreboard — always full width */}
+      {/* ── Scoreboard — always full width ── */}
       <Scoreboard game={game} homeTeam={homeTeam} awayTeam={awayTeam} />
 
-      {/* Two-column console: left=plays, right=log+notes */}
+      {/* ── Two-column console ── */}
       <div className={styles.consoleGrid}>
 
         {/* ── Left / Main column ── */}
         <div className={styles.mainCol}>
 
-          {/* Current situation: bases diamond + batter card */}
-          <div className={styles.situationRow}>
-            <BasesDiamond bases={game.bases} />
-            <CurrentBatterCard
-              player={currentPlayer}
-              order={currentEntry?.order}
-              position={currentEntry?.position}
-              nextPlayer={nextPlayer}
-            />
-          </div>
+          {/* 1. Current situation: batter + bases (unified) */}
+          <CurrentSituation
+            player={currentPlayer}
+            entry={currentEntry}
+            nextPlayer={nextPlayer}
+            bases={game.bases}
+            battingTeam={battingTeam}
+          />
 
-          {/* Quick plays — most common, thumb-friendly, always visible */}
+          {/* 2. Quick plays — PRIMARY input area */}
           <div className={styles.quickPanel}>
             <div className={styles.quickHeader}>
               <span className={styles.quickLabel}>Jugadas rápidas</span>
+              <span className={styles.quickHint}>Toca para registrar</span>
             </div>
             <div className={styles.quickGrid}>
               {QUICK_PLAY_CODES.map(code => {
@@ -160,36 +166,7 @@ export default function ScoreGame({ onNavigate }) {
             </div>
           </div>
 
-          {/* Full categorized play panel */}
-          <div className={styles.playPanel}>
-            <div className={styles.groupTabs}>
-              {SCORING_BUTTONS.map((g, i) => (
-                <button
-                  key={i}
-                  className={`${styles.tab} ${activeGroup === i ? styles.tabActive : ''}`}
-                  onClick={() => setActiveGroup(i)}
-                >
-                  {g.group}
-                </button>
-              ))}
-            </div>
-            <div className={styles.playGrid}>
-              {SCORING_BUTTONS[activeGroup]?.plays.map(code => {
-                const play = PLAY_CODES[code];
-                if (!play) return null;
-                return (
-                  <PlayResultButton
-                    key={code}
-                    play={play}
-                    onClick={handlePlay}
-                    disabled={isOver}
-                  />
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Action controls */}
+          {/* 3. Action controls — BEFORE categorized plays on mobile */}
           <div className={styles.controls}>
             <div className={styles.controlsRow}>
               <button className={`${styles.ctrl} ${styles.ctrlGreen}`} onClick={handleAddRun} disabled={isOver}>
@@ -227,12 +204,41 @@ export default function ScoreGame({ onNavigate }) {
             </div>
           </div>
 
+          {/* 4. Full categorized play panel — secondary */}
+          <div className={styles.playPanel}>
+            <div className={styles.groupTabs}>
+              {SCORING_BUTTONS.map((g, i) => (
+                <button
+                  key={i}
+                  className={`${styles.tab} ${activeGroup === i ? styles.tabActive : ''}`}
+                  onClick={() => setActiveGroup(i)}
+                >
+                  {g.group}
+                </button>
+              ))}
+            </div>
+            <div className={styles.playGrid}>
+              {SCORING_BUTTONS[activeGroup]?.plays.map(code => {
+                const play = PLAY_CODES[code];
+                if (!play) return null;
+                return (
+                  <PlayResultButton
+                    key={code}
+                    play={play}
+                    onClick={handlePlay}
+                    disabled={isOver}
+                  />
+                );
+              })}
+            </div>
+          </div>
+
         </div>
 
         {/* ── Right / Side column ── */}
         <div className={styles.sideCol}>
 
-          {/* Play-by-play log */}
+          {/* Recent plays */}
           <div className={styles.recentPlays}>
             <h3 className={styles.playsTitle}>Registro de Jugadas</h3>
             {recentPlays.length === 0 && (
@@ -271,7 +277,7 @@ export default function ScoreGame({ onNavigate }) {
                 rows={2}
               />
               <button
-                className={styles.noteSaveBtn}
+                className={`${styles.noteSaveBtn} ${noteText.trim() ? styles.noteSaveBtnActive : ''}`}
                 onClick={() => saveNote(noteText)}
                 disabled={!noteText.trim()}
               >
@@ -283,6 +289,7 @@ export default function ScoreGame({ onNavigate }) {
                 {[...notes].reverse().slice(0, 6).map(note => (
                   <div key={note.id} className={styles.noteItem}>
                     <span className={styles.noteInning}>{note.isTopInning ? '▲' : '▼'}{note.inning}</span>
+                    {note.time && <span className={styles.noteTime}>{note.time}</span>}
                     <span className={styles.noteText}>{note.text}</span>
                     <button className={styles.noteDelete} onClick={() => deleteNote(note.id)}>×</button>
                   </div>

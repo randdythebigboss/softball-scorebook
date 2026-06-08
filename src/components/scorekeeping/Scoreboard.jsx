@@ -6,6 +6,23 @@ export default function Scoreboard({ game, homeTeam, awayTeam }) {
 
   return (
     <div className={styles.board}>
+
+      {/* Prominent score strip — first thing you see */}
+      <div className={styles.scoreStrip}>
+        <div className={`${styles.teamBlock} ${isTopInning ? styles.teamBatting : ''}`}>
+          <span className={styles.teamAbr}>{awayTeam?.shortName || 'VIS'}</span>
+          <span className={styles.bigScore}>{awayScore}</span>
+        </div>
+        <div className={styles.stripCenter}>
+          <span className={styles.halfTag}>{isTopInning ? '▲' : '▼'}{currentInning}</span>
+        </div>
+        <div className={`${styles.teamBlock} ${styles.teamBlockRight} ${!isTopInning ? styles.teamBatting : ''}`}>
+          <span className={styles.bigScore}>{homeScore}</span>
+          <span className={styles.teamAbr}>{homeTeam?.shortName || 'LOC'}</span>
+        </div>
+      </div>
+
+      {/* Line score table — secondary, scrollable */}
       <div className={styles.tableWrap}>
         <table className={styles.table}>
           <thead>
@@ -54,6 +71,7 @@ export default function Scoreboard({ game, homeTeam, awayTeam }) {
         </table>
       </div>
 
+      {/* Meta bar: inning detail + batting team + outs */}
       <div className={styles.meta}>
         <div className={styles.metaInning}>
           <span className={styles.halfArrow}>{isTopInning ? '▲' : '▼'}</span>
@@ -75,6 +93,7 @@ export default function Scoreboard({ game, homeTeam, awayTeam }) {
           </div>
         </div>
       </div>
+
     </div>
   );
 }

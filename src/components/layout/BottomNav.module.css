@@ -8,7 +8,7 @@
   border-top: 1px solid var(--color-gray-200);
   display: flex;
   height: var(--bottom-nav-height);
-  box-shadow: 0 -2px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 -2px 20px rgba(0,0,0,0.1);
 }
 
 .item {
@@ -26,24 +26,29 @@
 
 .item:hover { color: var(--color-primary); }
 
+/* Active: primary color + top bar indicator (iOS-style) */
 .active { color: var(--color-primary); }
 
-.active::after {
+.active::before {
   content: '';
   position: absolute;
-  bottom: 7px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--color-accent);
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 2px;
+  border-radius: 0 0 3px 3px;
+  background: var(--color-primary);
 }
 
 .label {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.02em;
+}
+
+.active .label {
+  font-weight: 700;
+  color: var(--color-primary);
 }
 
 @media (min-width: 768px) {

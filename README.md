@@ -20,7 +20,7 @@ npm run preview   # preview production build locally
 
 ## Features
 
-- **Live scoring console** — desktop two-column layout; quick-play row (1B, 2B, HR, BB, K, 4-3, F8, Error) always visible above category tabs; tapping records the play instantly
+- **Live scoring console** — unified current-situation card (batter + bases diamond); quick-play row (1B, 2B, HR, BB, K, 4-3, F8, Error) as primary input; categorized tabs below; desktop two-column layout
 - **Editable lineups** — configure batting order and positions for both teams before scoring; Auto Fill from roster available
 - **Base tracking** — visual diamond updates automatically after each play
 - **Undo last play** — one tap to revert the most recent play (up to 10 levels)
@@ -51,6 +51,7 @@ npm run preview   # preview production build locally
 ## Roadmap
 
 - [x] Editable lineups wired to NewGame flow
+- [x] GitHub Pages auto-deploy via Actions (`.github/workflows/deploy.yml`)
 - [ ] Supabase backend for cross-device sync
 - [ ] Pitcher stat tracking
 - [ ] Game sharing via URL / QR code
