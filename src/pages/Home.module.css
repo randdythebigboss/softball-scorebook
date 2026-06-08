@@ -1,0 +1,130 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  color: white;
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+
+.heroContent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.heroLogo {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  font-size: 20px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(249,115,22,0.4);
+}
+
+.heroTeam {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.heroSub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 2px;
+}
+
+.heroActions {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-md);
+}
+
+.heroActions button {
+  flex: 1;
+  min-width: 140px;
+}
+
+.heroRecord {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 22px;
+  font-weight: 900;
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+}
+
+.heroDash { color: rgba(255,255,255,0.3); }
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+@media (min-width: 480px) {
+  .kpiGrid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.gamesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.playersList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.quickActions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-md);
+}
+
+.qa {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-md) var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.qa:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }

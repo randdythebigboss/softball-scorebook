@@ -1,0 +1,25 @@
+.badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-gray-100);
+  border-radius: var(--radius-md);
+  padding: 6px 10px;
+  min-width: 44px;
+}
+
+.val {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-gray-800);
+}
+
+.lbl {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-gray-400);
+  margin-top: 2px;
+}

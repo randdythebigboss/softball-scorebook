@@ -1,0 +1,48 @@
+.diamond {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--spacing-md);
+}
+
+.base {
+  width: 28px;
+  height: 28px;
+  transform: rotate(45deg);
+  border: 2.5px solid var(--color-gray-300);
+  background: transparent;
+  border-radius: 3px;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.occupied {
+  background: var(--color-accent);
+  border-color: var(--color-accent-dark);
+}
+
+.second { margin-bottom: 2px; }
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.homeplate {
+  width: 20px;
+  height: 20px;
+  background: var(--color-gray-300);
+  clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+}
+
+.labels {
+  display: flex;
+  gap: 20px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-gray-400);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}

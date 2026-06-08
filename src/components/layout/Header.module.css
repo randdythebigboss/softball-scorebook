@@ -1,0 +1,83 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--color-primary);
+  height: var(--header-height);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 var(--spacing-md);
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.appName {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-white);
+  letter-spacing: 0.02em;
+}
+
+.appSub {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex: 1;
+  text-align: center;
+}
+
+.menuBtn {
+  color: rgba(255,255,255,0.8);
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+  flex-shrink: 0;
+}
+.menuBtn:hover { background: rgba(255,255,255,0.1); }
+
+@media (min-width: 768px) {
+  .menuBtn { display: none; }
+}

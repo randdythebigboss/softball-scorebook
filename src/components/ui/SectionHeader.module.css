@@ -1,0 +1,21 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-gray-800);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.action {
+  font-size: 13px;
+  color: var(--color-accent);
+  font-weight: 600;
+  cursor: pointer;
+}

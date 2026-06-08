@@ -1,0 +1,127 @@
+.page { display: flex; flex-direction: column; gap: var(--spacing-lg); }
+
+.panels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+@media (min-width: 640px) {
+  .panels { flex-direction: row; }
+  .panel { flex: 1; }
+}
+
+.panel {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: var(--spacing-md);
+  color: white;
+}
+
+.panelLogo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.panelTeam { font-size: 15px; font-weight: 700; }
+.panelLabel { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.lineupList { padding: var(--spacing-xs) 0; }
+
+.lineupRow {
+  display: grid;
+  grid-template-columns: 24px 36px 1fr 40px;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 9px var(--spacing-md);
+  border-bottom: 1px solid var(--color-gray-100);
+  font-size: 14px;
+}
+.lineupRow:last-child { border-bottom: none; }
+
+.order {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-gray-400);
+  text-align: center;
+}
+
+.num {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.playerName {
+  font-weight: 600;
+  color: var(--color-gray-800);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pos {
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--color-gray-100);
+  color: var(--color-gray-600);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  text-align: center;
+}
+
+.empty {
+  padding: var(--spacing-xl) var(--spacing-md);
+  text-align: center;
+  color: var(--color-gray-400);
+  font-size: 14px;
+}
+.emptySub { font-size: 12px; margin-top: 4px; }
+
+.bench {
+  border-top: 1px solid var(--color-gray-100);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-gray-50);
+}
+
+.benchTitle {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-gray-400);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.benchList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.benchPlayer {
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  color: var(--color-gray-600);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+}

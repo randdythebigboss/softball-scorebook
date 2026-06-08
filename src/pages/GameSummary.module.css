@@ -1,0 +1,202 @@
+.page { display: flex; flex-direction: column; gap: var(--spacing-lg); }
+
+.demoBanner {
+  background: var(--color-warning);
+  color: white;
+  border-radius: var(--radius-md);
+  padding: 10px var(--spacing-md);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.winnerBanner {
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  color: white;
+  box-shadow: var(--shadow-xl);
+}
+
+.winnerLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.7;
+}
+
+.winnerName {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.finalScore {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 36px;
+  font-weight: 900;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-gray-500);
+  flex-wrap: wrap;
+}
+
+.lineScoreWrap {
+  overflow-x: auto;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.lineScore {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.lineScore th {
+  background: var(--color-primary);
+  color: rgba(255,255,255,0.7);
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.lineScore td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-gray-100);
+  color: var(--color-gray-700);
+  font-weight: 600;
+}
+
+.teamCell {
+  text-align: left !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.total {
+  font-weight: 800 !important;
+  color: var(--color-gray-800) !important;
+  font-size: 15px;
+}
+
+.performers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+.performer {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-gray-100);
+}
+
+.perfAvatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: white;
+  font-size: 14px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.perfName {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-gray-800);
+}
+
+.perfStats {
+  font-size: 11px;
+  color: var(--color-gray-500);
+  margin-top: 2px;
+}
+
+.plays {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.playRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 9px var(--spacing-md);
+  font-size: 13px;
+  border-bottom: 1px solid var(--color-gray-100);
+}
+.playRow:last-child { border-bottom: none; }
+
+.playInning { font-size: 11px; font-weight: 700; color: var(--color-gray-400); min-width: 28px; }
+.playCode { font-size: 11px; font-weight: 800; background: var(--color-primary); color: white; padding: 2px 6px; border-radius: var(--radius-sm); }
+.playPlayer { font-weight: 600; color: var(--color-gray-800); flex: 1; }
+.playDesc { font-size: 12px; color: var(--color-gray-500); }
+.runs { font-size: 12px; font-weight: 700; color: var(--color-success); background: #dcfce7; padding: 2px 6px; border-radius: var(--radius-full); }
+
+.notes {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-md);
+}
+
+.notesTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-gray-700);
+  margin-bottom: var(--spacing-sm);
+}
+
+.notesInput {
+  width: 100%;
+  border: 1.5px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font-size: 14px;
+  resize: vertical;
+  outline: none;
+  font-family: inherit;
+  color: var(--color-gray-800);
+}
+.notesInput:focus { border-color: var(--color-primary); }
+
+.actions {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: flex-end;
+}

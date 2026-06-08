@@ -1,0 +1,160 @@
+.page { display: flex; flex-direction: column; gap: var(--spacing-md); }
+
+.demoBanner {
+  background: var(--color-warning);
+  color: white;
+  border-radius: var(--radius-md);
+  padding: 10px var(--spacing-md);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.tabs {
+  display: flex;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 4px;
+  box-shadow: var(--shadow-sm);
+  gap: 4px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-gray-500);
+  transition: all var(--transition-fast);
+}
+
+.tabActive {
+  background: var(--color-primary);
+  color: white;
+}
+
+.section { display: flex; flex-direction: column; gap: var(--spacing-md); }
+
+.sortRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sortLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-gray-500);
+}
+
+.sortBtn {
+  padding: 5px 10px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-gray-500);
+  background: var(--color-white);
+  border: 1.5px solid var(--color-gray-200);
+  transition: all var(--transition-fast);
+}
+
+.sortActive {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.table th {
+  background: var(--color-primary);
+  color: rgba(255,255,255,0.7);
+  padding: 10px 10px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--color-gray-100);
+  color: var(--color-gray-700);
+  white-space: nowrap;
+}
+
+.table tbody tr:hover { background: var(--color-gray-50); }
+
+.teamCell {
+  text-align: left !important;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.playerCell {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+  text-align: left !important;
+}
+
+.mini {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.teamTag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+}
+
+.rank { font-weight: 700; color: var(--color-gray-400); }
+.avg  { font-weight: 800; color: var(--color-primary); }
+.win  { font-weight: 800; color: var(--color-success); }
+.loss { font-weight: 800; color: var(--color-danger); }
+.pos  { font-weight: 700; color: var(--color-success); }
+.neg  { font-weight: 700; color: var(--color-danger); }
+.date { font-size: 12px; color: var(--color-gray-500); }
+
+.typeBadge {
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--color-gray-100);
+  color: var(--color-gray-600);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}

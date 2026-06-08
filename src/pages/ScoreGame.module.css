@@ -1,0 +1,159 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.statusRow {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+}
+
+.statusRow > :first-child { flex-shrink: 0; }
+.statusRow > :last-child { flex: 1; }
+
+.playPanel {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.groupTabs {
+  display: flex;
+  background: var(--color-gray-100);
+  overflow-x: auto;
+  gap: 0;
+}
+
+.tab {
+  flex: 1;
+  min-width: 60px;
+  padding: 10px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-gray-500);
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  border-bottom: 2px solid transparent;
+}
+
+.tabActive {
+  background: var(--color-white);
+  color: var(--color-primary);
+  border-bottom-color: var(--color-accent);
+}
+
+.playGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+}
+
+@media (min-width: 400px) {
+  .playGrid { grid-template-columns: repeat(5, 1fr); }
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+}
+
+.ctrl {
+  padding: 10px 6px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  transition: opacity var(--transition-fast);
+}
+.ctrl:hover { opacity: 0.85; }
+
+.ctrlWarning { background: var(--color-warning); }
+.ctrlDanger  { background: var(--color-danger); }
+.ctrlUndo    { background: var(--color-gray-600); }
+.ctrl:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.recentPlays {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.playsTitle {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-gray-500);
+  background: var(--color-gray-50);
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.playRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 8px var(--spacing-md);
+  font-size: 13px;
+  border-bottom: 1px solid var(--color-gray-100);
+}
+.playRow:last-child { border-bottom: none; }
+
+.playInning {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-gray-400);
+  min-width: 28px;
+}
+
+.playCode {
+  font-size: 12px;
+  font-weight: 800;
+  background: var(--color-primary);
+  color: white;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  min-width: 36px;
+  text-align: center;
+}
+
+.playPlayer {
+  font-weight: 600;
+  color: var(--color-gray-800);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playDesc {
+  font-size: 12px;
+  color: var(--color-gray-500);
+}
+
+.playRuns {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-success);
+  background: #dcfce7;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+}
+
+.noPlays {
+  padding: var(--spacing-md);
+  font-size: 13px;
+  color: var(--color-gray-400);
+  text-align: center;
+}

@@ -1,0 +1,117 @@
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-md);
+  cursor: pointer;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.date {
+  font-size: 12px;
+  color: var(--color-gray-500);
+  font-weight: 500;
+}
+
+.type {
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--color-gray-100);
+  color: var(--color-gray-600);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.status {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  margin-left: auto;
+}
+.final { background: #dcfce7; color: #166534; }
+.in_progress { background: #fef3c7; color: #92400e; }
+.pending { background: var(--color-gray-100); color: var(--color-gray-500); }
+
+.matchup {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.team {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.team:last-child { flex-direction: row-reverse; }
+
+.teamLogo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.teamName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.score {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--color-gray-400);
+  min-width: 28px;
+  text-align: center;
+}
+
+.scoreWin { color: var(--color-primary); }
+
+.vs {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-gray-300);
+  padding: 0 4px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--color-gray-400);
+  border-top: 1px solid var(--color-gray-100);
+  padding-top: var(--spacing-sm);
+}
+
+.winnerLabel {
+  font-weight: 700;
+  color: var(--color-success);
+}
