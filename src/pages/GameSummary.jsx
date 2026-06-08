@@ -160,10 +160,19 @@ export default function GameSummary({ onNavigate }) {
         </>
       )}
 
-      <div className={styles.notes}>
-        <h3 className={styles.notesTitle}>Notas del Juego</h3>
-        <textarea className={styles.notesInput} placeholder="Escribe notas del juego aquí..." rows={4} />
-      </div>
+      {game.scorebookNotes && game.scorebookNotes.length > 0 && (
+        <>
+          <SectionHeader title="Apuntes del Juego" />
+          <div className={styles.notesLog}>
+            {game.scorebookNotes.map(note => (
+              <div key={note.id} className={styles.noteItem}>
+                <span className={styles.noteInning}>{note.isTopInning ? '▲' : '▼'}{note.inning}</span>
+                <span className={styles.noteText}>{note.text}</span>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       <div className={styles.actions}>
         <Button onClick={() => onNavigate('home')} variant="outline">Volver al Inicio</Button>

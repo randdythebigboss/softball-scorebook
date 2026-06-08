@@ -1,21 +1,92 @@
+/* ── Page shell ── */
 .page {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
-  max-width: 600px;
-  margin: 0 auto;
 }
 
-.statusRow {
+/* ── Two-column console (mobile: stack, desktop: side-by-side) ── */
+.consoleGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .consoleGrid { grid-template-columns: 3fr 2fr; }
+}
+
+.mainCol,
+.sideCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  min-width: 0;
+}
+
+/* ── Situation: bases + batter ── */
+.situationRow {
   display: flex;
   gap: var(--spacing-sm);
   align-items: flex-start;
 }
+.situationRow > :first-child { flex-shrink: 0; }
+.situationRow > :last-child  { flex: 1; }
 
-.statusRow > :first-child { flex-shrink: 0; }
-.statusRow > :last-child { flex: 1; }
+/* ── Quick Plays ── */
+.quickPanel {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-gray-100);
+  overflow: hidden;
+}
 
-/* ── Play Panel ────────────────────────────────────────────────────────────── */
+.quickHeader {
+  padding: 8px var(--spacing-md) 0;
+}
+
+.quickLabel {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-gray-400);
+}
+
+.quickGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
+}
+
+@media (min-width: 480px) {
+  .quickGrid { grid-template-columns: repeat(8, 1fr); }
+}
+
+.quickBtn {
+  min-height: 56px;
+  font-size: 14px;
+  font-weight: 900;
+  border-radius: var(--radius-md);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+}
+.quickBtn:hover:not(:disabled) { opacity: 0.82; }
+.quickBtn:active:not(:disabled) { transform: scale(0.91); }
+.quickBtn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* Quick play category colors */
+.qpHit    { background: #dcfce7; color: #14532d; border: 1.5px solid #86efac; }
+.qpWalk   { background: #dbeafe; color: #1e40af; border: 1.5px solid #93c5fd; }
+.qpOut    { background: #f1f5f9; color: #334155; border: 1.5px solid #cbd5e1; }
+.qpError  { background: #fef3c7; color: #78350f; border: 1.5px solid #fcd34d; }
+.qpSpecial { background: var(--color-gray-100); color: var(--color-gray-700); border: 1.5px solid var(--color-gray-200); }
+
+/* ── Full categorized play panel ── */
 .playPanel {
   background: var(--color-white);
   border-radius: var(--radius-lg);
@@ -29,11 +100,13 @@
   background: var(--color-gray-50);
   border-bottom: 1px solid var(--color-gray-100);
   overflow-x: auto;
+  scrollbar-width: none;
 }
+.groupTabs::-webkit-scrollbar { display: none; }
 
 .tab {
   flex: 1;
-  min-width: 64px;
+  min-width: 60px;
   padding: 10px 8px;
   font-size: 11px;
   font-weight: 800;
@@ -63,45 +136,55 @@
   .playGrid { grid-template-columns: repeat(5, 1fr); }
 }
 
-/* ── Action Controls ───────────────────────────────────────────────────────── */
+/* ── Action controls ── */
 .controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.controlsRow {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-xs);
-  row-gap: var(--spacing-sm);
 }
 
 .ctrl {
   padding: 12px 6px;
   border-radius: var(--radius-md);
-  background: var(--color-primary);
-  color: white;
   font-size: 12px;
   font-weight: 700;
-  min-height: 48px;
+  min-height: 50px;
   transition: opacity var(--transition-fast), transform var(--transition-fast);
-  line-height: 1.2;
+  line-height: 1.3;
   text-align: center;
+  color: white;
 }
 .ctrl:hover:not(:disabled) { opacity: 0.88; }
 .ctrl:active:not(:disabled) { transform: scale(0.97); }
 .ctrl:disabled { opacity: 0.4; cursor: not-allowed; }
 
-.ctrlWarning {
-  background: var(--color-warning);
-  color: white;
-  font-size: 13px;
-}
-.ctrlDanger {
-  background: var(--color-danger);
-  color: white;
-}
-.ctrlUndo {
-  background: var(--color-gray-600);
-  color: white;
+.ctrlIcon {
+  display: block;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1;
 }
 
-/* ── Recent Plays ──────────────────────────────────────────────────────────── */
+/* Button hierarchy: green > slate > secondary > undo > warning > danger */
+.ctrlGreen     { background: var(--color-primary); }
+.ctrlSlate     { background: var(--color-gray-600); }
+.ctrlSecondary { background: var(--color-gray-500); }
+.ctrlUndo      { background: var(--color-gray-700); }
+.ctrlWarning   { background: var(--color-warning); color: #1c1917; }
+.ctrlDanger    { background: #7f1d1d; border: 2px solid var(--color-danger); }
+
+/* Bottom padding on mobile so content clears the bottom nav */
+@media (max-width: 767px) {
+  .controls { padding-bottom: var(--spacing-sm); }
+}
+
+/* ── Right column: Recent plays ── */
 .recentPlays {
   background: var(--color-white);
   border-radius: var(--radius-lg);
@@ -119,14 +202,22 @@
   color: var(--color-primary);
   background: var(--color-gray-50);
   border-bottom: 1px solid var(--color-gray-100);
+  margin: 0;
+}
+
+.noPlays {
+  padding: var(--spacing-md);
+  font-size: 13px;
+  color: var(--color-gray-400);
+  text-align: center;
 }
 
 .playRow {
   display: flex;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 6px;
   padding: 8px var(--spacing-md);
-  font-size: 13px;
+  font-size: 12px;
   border-bottom: 1px solid var(--color-gray-100);
 }
 .playRow:last-child { border-bottom: none; }
@@ -135,18 +226,20 @@
   font-size: 10px;
   font-weight: 700;
   color: var(--color-gray-400);
-  min-width: 26px;
+  min-width: 22px;
+  flex-shrink: 0;
 }
 
 .playCode {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 800;
   background: var(--color-primary);
   color: white;
-  padding: 2px 6px;
+  padding: 2px 5px;
   border-radius: var(--radius-sm);
-  min-width: 36px;
+  min-width: 30px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .playPlayer {
@@ -159,22 +252,139 @@
 }
 
 .playDesc {
-  font-size: 12px;
-  color: var(--color-gray-500);
+  font-size: 11px;
+  color: var(--color-gray-400);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 72px;
+  flex-shrink: 0;
 }
 
 .playRuns {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
   color: var(--color-success);
   background: #dcfce7;
-  padding: 2px 7px;
+  padding: 2px 5px;
   border-radius: var(--radius-full);
+  flex-shrink: 0;
 }
 
-.noPlays {
+/* ── Right column: Scorebook notes ── */
+.notesPanel {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-gray-100);
   padding: var(--spacing-md);
-  font-size: 13px;
-  color: var(--color-gray-400);
-  text-align: center;
 }
+
+.notesTitle {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary);
+  margin: 0 0 var(--spacing-sm);
+}
+
+.noteChips {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-sm);
+}
+
+.noteChip {
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--color-gray-100);
+  color: var(--color-gray-700);
+  padding: 4px 9px;
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+.noteChip:hover { background: var(--color-primary); color: white; }
+
+.noteInputRow {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: flex-end;
+}
+
+.noteInput {
+  flex: 1;
+  border: 1.5px solid var(--color-gray-200);
+  border-radius: var(--radius-md);
+  padding: 8px 10px;
+  font-size: 13px;
+  resize: none;
+  color: var(--color-gray-800);
+  background: var(--color-gray-50);
+  transition: border-color var(--transition-fast);
+  font-family: inherit;
+  min-height: 56px;
+}
+.noteInput:focus { outline: none; border-color: var(--color-primary); }
+
+.noteSaveBtn {
+  background: var(--color-primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  height: 36px;
+  flex-shrink: 0;
+  transition: opacity var(--transition-fast);
+  align-self: flex-end;
+}
+.noteSaveBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+.noteSaveBtn:hover:not(:disabled) { opacity: 0.88; }
+
+.notesList {
+  margin-top: var(--spacing-sm);
+  border-top: 1px solid var(--color-gray-100);
+  padding-top: 2px;
+}
+
+.noteItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--color-gray-100);
+  font-size: 12px;
+}
+.noteItem:last-child { border-bottom: none; }
+
+.noteInning {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--color-primary);
+  background: rgba(22,101,52,0.08);
+  padding: 2px 5px;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.noteText {
+  flex: 1;
+  color: var(--color-gray-700);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.noteDelete {
+  font-size: 16px;
+  line-height: 1;
+  color: var(--color-gray-300);
+  padding: 2px 5px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+.noteDelete:hover { background: #fee2e2; color: var(--color-danger); }

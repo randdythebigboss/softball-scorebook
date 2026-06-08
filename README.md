@@ -20,7 +20,7 @@ npm run preview   # preview production build locally
 
 ## Features
 
-- **Live scoring** — tap play buttons (1B, 2B, HR, K, etc.) to record each at-bat
+- **Live scoring console** — desktop two-column layout; quick-play row (1B, 2B, HR, BB, K, 4-3, F8, Error) always visible above category tabs; tapping records the play instantly
 - **Editable lineups** — configure batting order and positions for both teams before scoring; Auto Fill from roster available
 - **Base tracking** — visual diamond updates automatically after each play
 - **Undo last play** — one tap to revert the most recent play (up to 10 levels)
@@ -29,13 +29,14 @@ npm run preview   # preview production build locally
 - **Completed game history** — finished games are saved and drive the Stats page
 - **Team & player stats** — aggregated from all completed games; demo data shown until a real game is finished
 - **Mobile-first layout** — bottom nav on mobile, side nav on desktop
+- **Scorebook notes (local)** — tap quick chips or free-type notes while scoring; each note records the inning and half-inning. Notes are stored in `currentGame.scorebookNotes` (localStorage only, no backend). They appear on the Game Summary page after the game is finished.
 
 ## localStorage Keys
 
 | Key | Contents |
 |-----|----------|
-| `currentGame` | Active in-progress game object (null when no game is running) |
-| `dugout_completed_games` | Array of finished game objects (status: "final") |
+| `currentGame` | Active in-progress game object, including `scorebookNotes[]` (null when no game is running) |
+| `dugout_completed_games` | Array of finished game objects (status: "final"), each may include saved notes |
 
 ## Limitations & Assumptions
 

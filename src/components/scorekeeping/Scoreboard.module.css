@@ -1,8 +1,9 @@
 .board {
-  background: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255,255,255,0.05);
 }
 
 .tableWrap {
@@ -18,26 +19,29 @@
 }
 
 .table th {
-  background: rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.2);
   padding: 6px 10px;
   text-align: center;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.5);
 }
 
-.teamCol { text-align: left !important; min-width: 60px; }
-.inningCol { min-width: 28px; }
-.totalCol { min-width: 30px; color: rgba(255,255,255,0.8) !important; }
+.teamCol { text-align: left !important; min-width: 64px; }
+.inningCol { min-width: 26px; }
+.totalCol {
+  min-width: 30px;
+  border-left: 1px solid rgba(255,255,255,0.1);
+}
 
-.current { color: var(--color-accent) !important; }
+.current { color: var(--color-accent) !important; font-weight: 900 !important; }
 
 .table td {
-  padding: 8px 10px;
+  padding: 9px 10px;
   text-align: center;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid rgba(255,255,255,0.05);
 }
 
 .teamName {
@@ -59,59 +63,96 @@
 
 .score {
   font-weight: 600;
-  color: rgba(255,255,255,0.8);
+  color: rgba(255,255,255,0.7);
 }
 
 .total {
-  font-weight: 800;
-  font-size: 15px;
+  font-weight: 900;
+  font-size: 16px;
   color: white !important;
 }
 
 .batting td {
-  background: rgba(251, 191, 36, 0.13);
+  background: rgba(251,191,36,0.1);
 }
 
+/* ── Meta bar: inning + batting team + outs ── */
 .meta {
   display: flex;
   justify-content: space-around;
-  padding: 10px var(--spacing-md);
-  border-top: 1px solid rgba(255,255,255,0.1);
-}
-
-.metaItem {
-  display: flex;
   align-items: center;
-  gap: 8px;
+  padding: 10px var(--spacing-md);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.2);
+  gap: var(--spacing-md);
 }
 
 .metaLabel {
-  font-size: 11px;
+  font-size: 9px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: rgba(255,255,255,0.5);
-  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.38);
+  font-weight: 700;
+  display: block;
 }
 
-.metaValue {
-  font-size: 16px;
-  font-weight: 800;
+.metaInning {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+}
+
+.halfArrow {
+  font-size: 13px;
+  color: var(--color-accent);
+  font-weight: 900;
+}
+
+.inningNum {
+  font-size: 28px;
+  font-weight: 900;
   color: white;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.metaBatting {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.battingTeam {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-accent);
+  letter-spacing: 0.02em;
+}
+
+.metaOuts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
 }
 
 .outs {
   display: flex;
-  gap: 5px;
+  gap: 7px;
+  align-items: center;
 }
 
 .out {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.4);
+  border: 2px solid rgba(255,255,255,0.28);
+  transition: all var(--transition-fast);
 }
 
 .outFilled {
   background: var(--color-danger);
   border-color: var(--color-danger);
+  box-shadow: 0 0 8px rgba(220,38,38,0.6);
 }

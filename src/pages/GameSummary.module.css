@@ -200,3 +200,35 @@
   gap: var(--spacing-md);
   justify-content: flex-end;
 }
+
+/* ── Scorebook Notes (from ScoreGame) ── */
+.notesLog {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-gray-100);
+  overflow: hidden;
+}
+
+.noteItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 10px var(--spacing-md);
+  border-bottom: 1px solid var(--color-gray-100);
+  font-size: 13px;
+}
+.noteItem:last-child { border-bottom: none; }
+
+.noteInning {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-gray-400);
+  min-width: 28px;
+  flex-shrink: 0;
+}
+
+.noteText {
+  flex: 1;
+  color: var(--color-gray-700);
+}

@@ -55,11 +55,18 @@ export default function Scoreboard({ game, homeTeam, awayTeam }) {
       </div>
 
       <div className={styles.meta}>
-        <div className={styles.metaItem}>
-          <span className={styles.metaLabel}>Inning</span>
-          <span className={styles.metaValue}>{isTopInning ? '▲' : '▼'} {currentInning}</span>
+        <div className={styles.metaInning}>
+          <span className={styles.halfArrow}>{isTopInning ? '▲' : '▼'}</span>
+          <span className={styles.inningNum}>{currentInning}</span>
+          <span className={styles.metaLabel}>/ {totalInnings}</span>
         </div>
-        <div className={styles.metaItem}>
+        <div className={styles.metaBatting}>
+          <span className={styles.metaLabel}>Al bate</span>
+          <span className={styles.battingTeam}>
+            {isTopInning ? (awayTeam?.shortName || 'VIS') : (homeTeam?.shortName || 'LOC')}
+          </span>
+        </div>
+        <div className={styles.metaOuts}>
           <span className={styles.metaLabel}>Outs</span>
           <div className={styles.outs}>
             {[0, 1, 2].map(i => (

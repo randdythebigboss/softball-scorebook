@@ -1,14 +1,12 @@
-import { Home, Users, User, PlusCircle, Activity, BarChart2, Settings } from 'lucide-react';
+import { Home, PlusCircle, Activity, BarChart2, Settings } from 'lucide-react';
 import styles from './BottomNav.module.css';
 
 const NAV_ITEMS = [
-  { id: 'home',       label: 'Inicio',    Icon: Home        },
-  { id: 'teams',      label: 'Equipos',   Icon: Users       },
-  { id: 'players',    label: 'Jugadores', Icon: User        },
-  { id: 'new-game',   label: 'Nuevo',     Icon: PlusCircle  },
-  { id: 'score-game', label: 'Score',     Icon: Activity    },
-  { id: 'stats',      label: 'Stats',     Icon: BarChart2   },
-  { id: 'settings',   label: 'Config',    Icon: Settings    },
+  { id: 'home',       label: 'Inicio',  Icon: Home       },
+  { id: 'new-game',   label: 'Nuevo',   Icon: PlusCircle },
+  { id: 'score-game', label: 'Puntuar', Icon: Activity   },
+  { id: 'stats',      label: 'Stats',   Icon: BarChart2  },
+  { id: 'settings',   label: 'Ajustes', Icon: Settings   },
 ];
 
 export default function BottomNav({ currentPage, onNavigate }) {
@@ -21,7 +19,7 @@ export default function BottomNav({ currentPage, onNavigate }) {
           onClick={() => onNavigate(id)}
           aria-label={label}
         >
-          <Icon size={20} />
+          <Icon size={22} />
           <span className={styles.label}>{label}</span>
         </button>
       ))}
