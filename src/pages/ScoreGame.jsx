@@ -26,8 +26,8 @@ export default function ScoreGame({ onNavigate }) {
   const homeTeam = MOCK_TEAMS.find(t => t.id === game.homeTeamId);
   const awayTeam  = MOCK_TEAMS.find(t => t.id === game.awayTeamId);
 
-  const homeLineup = MOCK_HOME_LINEUP;
-  const awayLineup = MOCK_AWAY_LINEUP;
+  const homeLineup = (game.homeLineup && game.homeLineup.length > 0) ? game.homeLineup : MOCK_HOME_LINEUP;
+  const awayLineup = (game.awayLineup && game.awayLineup.length > 0) ? game.awayLineup : MOCK_AWAY_LINEUP;
   const currentLineup = game.isTopInning ? awayLineup : homeLineup;
   const currentIdx = game.isTopInning ? game.awayLineupIndex : game.homeLineupIndex;
   const currentEntry = currentLineup[currentIdx % currentLineup.length];

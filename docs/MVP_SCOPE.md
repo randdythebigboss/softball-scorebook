@@ -18,9 +18,16 @@
 - Game stored in localStorage
 
 ### Lineups
-- View lineup panels for home and away
-- Batting order, player number, name, position
-- Bench players listed
+- Editable lineup panels for home and away teams
+- Up to 12 batting slots per team (minimum 9 to save)
+- Player dropdown (team-filtered) + position dropdown per slot
+- Auto Fill from roster, Clear, Add/Remove Slot buttons
+- Duplicate-player validation with inline warning
+- Save Both Lineups → writes to `currentGame` in localStorage
+- Initializes `playerGameStats` for all lineup players on save
+- Bench players (not assigned to a slot) shown at the bottom
+- "Go to Score Game" button appears after a successful save
+- Lineups are now editable and stored locally in the current game.
 
 ### Live Scoring
 - Full scoreboard with line score by inning
@@ -64,7 +71,7 @@
 - Fielding statistics (putouts, assists)
 - Advanced substitution tracking
 - Undo/redo of plays
-- Drag-and-drop lineup editing
+- Drag-and-drop lineup reordering
 - Real logo upload
 - Export to PDF/Excel
 - Push notifications

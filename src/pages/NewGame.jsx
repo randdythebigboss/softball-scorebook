@@ -56,6 +56,8 @@ export default function NewGame({ onNavigate }) {
         away: Array(totalInnings).fill(null),
       },
       totals: { home: { runs: 0, hits: 0, errors: 0 }, away: { runs: 0, hits: 0, errors: 0 } },
+      homeLineup: [],
+      awayLineup: [],
       playerGameStats: {},
       playEvents: [],
       history: [],

@@ -38,7 +38,7 @@ npm run preview   # preview production build locally
 
 ## Limitations & Assumptions
 
-- **Lineups are fixed** — mock lineup data is used; lineup editing is not yet wired up to the game engine
+- **Lineups are now editable** — stored locally in the current game. Lineups are now editable and stored locally in the current game (see Lineup Editor page).
 - **Base advancement is simplified** — all runners advance the same number of bases as the batter
 - **RBI approximation** — batter is credited with all runs that scored on their hit/HR/sacrifice fly
 - **Run tracking per runner** — individual runner scoring is not tracked; only HR awards the batter a run in the stats
