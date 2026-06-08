@@ -1,42 +1,53 @@
 .kpi {
   background: var(--color-white);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  padding: var(--spacing-md);
+  box-shadow: var(--shadow-card);
+  padding: var(--spacing-md) var(--spacing-sm);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
   text-align: center;
-  min-height: 96px;
+  min-height: 84px;
+  border: 1px solid var(--color-gray-100);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.kpi:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
 }
 
 .accent {
-  background: var(--color-primary);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
   color: var(--color-white);
+  border-color: transparent;
 }
 
 .iconWrap {
   color: var(--color-accent);
   margin-bottom: 2px;
+  opacity: 0.85;
 }
-.accent .iconWrap { color: var(--color-accent-light); }
+.accent .iconWrap { color: rgba(255,255,255,0.85); }
 
 .value {
-  font-size: 28px;
-  font-weight: 800;
+  font-size: 30px;
+  font-weight: 900;
   line-height: 1;
   color: var(--color-gray-800);
+  letter-spacing: -0.02em;
 }
 .accent .value { color: var(--color-white); }
 
 .label {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-gray-500);
+  letter-spacing: 0.06em;
+  color: var(--color-muted);
+  margin-top: 1px;
 }
 .accent .label { color: rgba(255,255,255,0.7); }
 

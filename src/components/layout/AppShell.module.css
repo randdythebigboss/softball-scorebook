@@ -11,21 +11,39 @@
 }
 
 .content {
-  max-width: var(--content-max-width);
-  margin: 0 auto;
+  width: 100%;
   padding: var(--spacing-md);
 }
 
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.5);
   z-index: 150;
+  backdrop-filter: blur(2px);
+}
+
+@media (min-width: 480px) {
+  .content {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
 }
 
 @media (min-width: 768px) {
   .main {
     padding-bottom: 0;
-    padding-left: 220px;
+    padding-left: 200px;
+  }
+
+  .content {
+    padding: var(--spacing-lg) var(--spacing-xl);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1400px) {
+  .content {
+    padding: var(--spacing-xl) var(--spacing-2xl);
   }
 }

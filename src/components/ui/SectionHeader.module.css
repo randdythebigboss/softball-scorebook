@@ -6,16 +6,20 @@
 }
 
 .title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-gray-800);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-primary);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.07em;
 }
 
 .action {
-  font-size: 13px;
-  color: var(--color-accent);
+  font-size: 12px;
+  color: var(--color-primary);
   font-weight: 600;
   cursor: pointer;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
 }
+
+.action:hover { opacity: 1; }

@@ -17,99 +17,121 @@ export default function Home({ onNavigate, currentGame }) {
 
   return (
     <div className={styles.page}>
-      {/* Hero card */}
+
+      {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <div className={styles.hero}>
-        <div className={styles.heroContent}>
-          <div className={styles.heroLogo}>CV</div>
-          <div>
-            <h1 className={styles.heroTeam}>{mainTeam?.name}</h1>
-            <p className={styles.heroSub}>Temporada 2026 · Softball Informal</p>
+        <div className={styles.heroTop}>
+          <div className={styles.heroIdentity}>
+            <div className={styles.heroLogo}>CV</div>
+            <div className={styles.heroText}>
+              <h1 className={styles.heroTeam}>{mainTeam?.name}</h1>
+              <p className={styles.heroSub}>Temporada 2026 · Softball Informal</p>
+            </div>
+          </div>
+          <div className={styles.heroRecord}>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatVal}>{mainTeam?.stats.wins}</span>
+              <span className={styles.heroStatLbl}>V</span>
+            </div>
+            <span className={styles.heroDash}>·</span>
+            <div className={styles.heroStat}>
+              <span className={styles.heroStatValMuted}>{mainTeam?.stats.losses}</span>
+              <span className={styles.heroStatLbl}>D</span>
+            </div>
           </div>
         </div>
+
         <div className={styles.heroActions}>
           <Button size="lg" onClick={() => onNavigate('new-game')}>
             <PlusCircle size={18} /> Nuevo Juego
           </Button>
           {hasCurrentGame && (
-            <Button size="lg" variant="outline" onClick={() => onNavigate('score-game')}>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => onNavigate('score-game')}
+              className={styles.heroOutlineBtn}
+            >
               <Play size={18} /> Continuar Juego
             </Button>
           )}
         </div>
-        <div className={styles.heroRecord}>
-          <span>{mainTeam?.stats.wins}V</span>
-          <span className={styles.heroDash}>-</span>
-          <span>{mainTeam?.stats.losses}D</span>
-        </div>
       </div>
 
-      {/* KPIs */}
-      <div className={styles.kpiGrid}>
-        <KpiCard label="Jugados"  value={mainTeam?.stats.gamesPlayed} icon={Activity} />
-        <KpiCard label="Victorias" value={mainTeam?.stats.wins}  icon={Trophy} accent />
-        <KpiCard label="Derrotas" value={mainTeam?.stats.losses} icon={TrendingUp} />
-        <KpiCard label="Carreras" value={mainTeam?.stats.runsScored} icon={Users} />
+      {/* ── Desktop 2-column layout ─────────────────────────────────────── */}
+      <div className={styles.desktopGrid}>
+
+        {/* Left / Main column */}
+        <div className={styles.mainCol}>
+          <section>
+            <SectionHeader
+              title="Juegos Recientes"
+              action={<span onClick={() => onNavigate('stats')}>Ver todos</span>}
+            />
+            <div className={styles.gamesList}>
+              {recentGames.map(game => {
+                const home = MOCK_TEAMS.find(t => t.id === game.homeTeamId);
+                const away = MOCK_TEAMS.find(t => t.id === game.awayTeamId);
+                return (
+                  <GameSummaryCard
+                    key={game.id}
+                    game={game}
+                    homeTeam={home}
+                    awayTeam={away}
+                    onClick={() => onNavigate('game-summary')}
+                  />
+                );
+              })}
+            </div>
+          </section>
+
+          <section>
+            <SectionHeader title="Acciones Rápidas" />
+            <div className={styles.quickActions}>
+              <button className={styles.qa} onClick={() => onNavigate('teams')}>
+                <Users size={22} />
+                <span>Equipos</span>
+              </button>
+              <button className={styles.qa} onClick={() => onNavigate('players')}>
+                <Activity size={22} />
+                <span>Jugadores</span>
+              </button>
+              <button className={styles.qa} onClick={() => onNavigate('lineup')}>
+                <Trophy size={22} />
+                <span>Alineación</span>
+              </button>
+              <button className={styles.qa} onClick={() => onNavigate('stats')}>
+                <TrendingUp size={22} />
+                <span>Estadísticas</span>
+              </button>
+            </div>
+          </section>
+        </div>
+
+        {/* Right / Side column */}
+        <div className={styles.sideCol}>
+          <div className={styles.kpiGrid}>
+            <KpiCard label="Jugados"   value={mainTeam?.stats.gamesPlayed} icon={Activity} />
+            <KpiCard label="Victorias" value={mainTeam?.stats.wins}         icon={Trophy} accent />
+            <KpiCard label="Derrotas"  value={mainTeam?.stats.losses}       icon={TrendingUp} />
+            <KpiCard label="Carreras"  value={mainTeam?.stats.runsScored}   icon={Users} />
+          </div>
+
+          <section>
+            <SectionHeader
+              title="Top Bateadores"
+              action={<span onClick={() => onNavigate('stats')}>Ver stats</span>}
+            />
+            <div className={styles.playersList}>
+              {topPlayers.map((player, i) => {
+                const team = MOCK_TEAMS.find(t => t.id === player.teamId);
+                return <PlayerStatsCard key={player.id} player={player} team={team} rank={i + 1} />;
+              })}
+            </div>
+          </section>
+        </div>
+
       </div>
-
-      {/* Recent games */}
-      <section>
-        <SectionHeader
-          title="Juegos Recientes"
-          action={<span onClick={() => onNavigate('stats')}>Ver todos</span>}
-        />
-        <div className={styles.gamesList}>
-          {recentGames.map(game => {
-            const home = MOCK_TEAMS.find(t => t.id === game.homeTeamId);
-            const away = MOCK_TEAMS.find(t => t.id === game.awayTeamId);
-            return (
-              <GameSummaryCard
-                key={game.id}
-                game={game}
-                homeTeam={home}
-                awayTeam={away}
-                onClick={() => onNavigate('game-summary')}
-              />
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Top players */}
-      <section>
-        <SectionHeader
-          title="Top Bateadores"
-          action={<span onClick={() => onNavigate('stats')}>Ver stats</span>}
-        />
-        <div className={styles.playersList}>
-          {topPlayers.map((player, i) => {
-            const team = MOCK_TEAMS.find(t => t.id === player.teamId);
-            return <PlayerStatsCard key={player.id} player={player} team={team} rank={i + 1} />;
-          })}
-        </div>
-      </section>
-
-      {/* Quick actions */}
-      <section>
-        <SectionHeader title="Acciones Rápidas" />
-        <div className={styles.quickActions}>
-          <button className={styles.qa} onClick={() => onNavigate('teams')}>
-            <Users size={24} />
-            <span>Equipos</span>
-          </button>
-          <button className={styles.qa} onClick={() => onNavigate('players')}>
-            <Activity size={24} />
-            <span>Jugadores</span>
-          </button>
-          <button className={styles.qa} onClick={() => onNavigate('lineup')}>
-            <Trophy size={24} />
-            <span>Alineación</span>
-          </button>
-          <button className={styles.qa} onClick={() => onNavigate('stats')}>
-            <TrendingUp size={24} />
-            <span>Estadísticas</span>
-          </button>
-        </div>
-      </section>
     </div>
   );
 }
