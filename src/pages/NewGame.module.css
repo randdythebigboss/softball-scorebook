@@ -127,3 +127,13 @@
   transition: transform var(--transition-base);
 }
 .toggleOn .toggleThumb { transform: translateX(20px); }
+
+.sameTeamWarn {
+  margin-top: var(--spacing-sm);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 13px;
+  font-weight: 600;
+}

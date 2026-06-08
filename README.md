@@ -21,6 +21,7 @@ npm run preview   # preview production build locally
 ## Features
 
 - **Live scoring** — tap play buttons (1B, 2B, HR, K, etc.) to record each at-bat
+- **Editable lineups** — configure batting order and positions for both teams before scoring; Auto Fill from roster available
 - **Base tracking** — visual diamond updates automatically after each play
 - **Undo last play** — one tap to revert the most recent play (up to 10 levels)
 - **Inning-by-inning line score** — real-time scoreboard header
@@ -38,16 +39,17 @@ npm run preview   # preview production build locally
 
 ## Limitations & Assumptions
 
-- **Lineups are now editable** — stored locally in the current game. Lineups are now editable and stored locally in the current game (see Lineup Editor page).
+- **Lineups are editable** — stored locally in `currentGame` via the Lineup Editor page
 - **Base advancement is simplified** — all runners advance the same number of bases as the batter
 - **RBI approximation** — batter is credited with all runs that scored on their hit/HR/sacrifice fly
 - **Run tracking per runner** — individual runner scoring is not tracked; only HR awards the batter a run in the stats
 - **No pitcher stats** — pitching stats (IP, ER, SO) are out of scope for v1
 - **No authentication** — all data is local to the device and browser
+- **Mock rosters** — all mock teams now include 12 active players, enough to test a full game flow with any team combination
 
 ## Roadmap
 
-- [ ] Editable lineups wired to NewGame flow
+- [x] Editable lineups wired to NewGame flow
 - [ ] Supabase backend for cross-device sync
 - [ ] Pitcher stat tracking
 - [ ] Game sharing via URL / QR code

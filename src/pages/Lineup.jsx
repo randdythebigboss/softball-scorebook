@@ -12,6 +12,11 @@ const MAX_SLOTS   = 12;
 
 function emptySlot() { return { playerId: '', position: '' }; }
 
+function getDupIds(slots) {
+  const ids = slots.map(s => s.playerId).filter(Boolean);
+  return ids.filter((id, i) => ids.indexOf(id) !== i);
+}
+
 function lineupToSlots(lineup) {
   if (!lineup || lineup.length === 0)
     return Array.from({ length: MIN_BATTERS }, emptySlot);
@@ -49,9 +54,30 @@ export default function Lineup({ onNavigate }) {
   const homePlayers = MOCK_PLAYERS.filter(p => p.teamId === game.homeTeamId && p.active);
   const awayPlayers = MOCK_PLAYERS.filter(p => p.teamId === game.awayTeamId && p.active);
 
-  const homeActive = homeSlots.filter(s => s.playerId).length;
-  const awayActive = awaySlots.filter(s => s.playerId).length;
-  const canSave    = homeActive >= MIN_BATTERS && awayActive >= MIN_BATTERS && !!currentGame;
+  const homeActive    = homeSlots.filter(s => s.playerId).length;
+  const awayActive    = awaySlots.filter(s => s.playerId).length;
+  const homeDupIds    = getDupIds(homeSlots);
+  const awayDupIds    = getDupIds(awaySlots);
+  const homeMissingPos = homeSlots.some(s => s.playerId && !s.position);
+  const awayMissingPos = awaySlots.some(s => s.playerId && !s.position);
+
+  const saveBlocker = !currentGame
+    ? 'No active game found. Create a new game first.'
+    : homeActive < MIN_BATTERS
+      ? `Home Team needs at least ${MIN_BATTERS} active batters (${homeActive}/${MIN_BATTERS}).`
+      : awayActive < MIN_BATTERS
+        ? `Away Team needs at least ${MIN_BATTERS} active batters (${awayActive}/${MIN_BATTERS}).`
+        : homeDupIds.length > 0
+          ? 'Home lineup has duplicate players.'
+          : awayDupIds.length > 0
+            ? 'Away lineup has duplicate players.'
+            : homeMissingPos
+              ? 'All Home batters must have a position assigned.'
+              : awayMissingPos
+                ? 'All Away batters must have a position assigned.'
+                : null;
+
+  const canSave = saveBlocker === null;
 
   const markChanged = () => setSaved(false);
 
@@ -87,6 +113,7 @@ export default function Lineup({ onNavigate }) {
           label="Away"
           players={awayPlayers}
           slots={awaySlots}
+          dupIds={awayDupIds}
           onChange={(next) => { setAwaySlots(next); markChanged(); }}
         />
         <LineupPanel
@@ -94,17 +121,14 @@ export default function Lineup({ onNavigate }) {
           label="Home"
           players={homePlayers}
           slots={homeSlots}
+          dupIds={homeDupIds}
           onChange={(next) => { setHomeSlots(next); markChanged(); }}
         />
       </div>
 
       <div className={styles.saveArea}>
-        {!canSave && currentGame && (
-          <div className={styles.notice}>
-            {homeActive < MIN_BATTERS
-              ? `Home Team needs at least ${MIN_BATTERS} active batters (${homeActive}/${MIN_BATTERS}).`
-              : `Away Team needs at least ${MIN_BATTERS} active batters (${awayActive}/${MIN_BATTERS}).`}
-          </div>
+        {saveBlocker && (
+          <div className={styles.notice}>{saveBlocker}</div>
         )}
         {saved && (
           <div className={styles.success}>Lineups saved successfully!</div>
@@ -124,9 +148,8 @@ export default function Lineup({ onNavigate }) {
 
 // ─── Panel ─────────────────────────────────────────────────────────────────────
 
-function LineupPanel({ team, label, players, slots, onChange }) {
+function LineupPanel({ team, label, players, slots, dupIds, onChange }) {
   const usedIds = slots.map(s => s.playerId).filter(Boolean);
-  const dupIds  = usedIds.filter((id, i) => usedIds.indexOf(id) !== i);
   const benchPlayers = players.filter(p => !usedIds.includes(p.id));
   const activeCount  = usedIds.length;
 

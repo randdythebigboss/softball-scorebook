@@ -28,6 +28,20 @@ export default function NewGame({ onNavigate }) {
 
   const set = (key, val) => setForm(f => ({ ...f, [key]: val }));
 
+  const handleTeamChange = (side, newId) => {
+    setForm(f => {
+      const next = { ...f, [`${side}TeamId`]: newId };
+      const otherKey = side === 'home' ? 'awayTeamId' : 'homeTeamId';
+      if (next[otherKey] === newId) {
+        const alt = MOCK_TEAMS.find(t => t.id !== newId);
+        if (alt) next[otherKey] = alt.id;
+      }
+      return next;
+    });
+  };
+
+  const sameTeam = form.homeTeamId === form.awayTeamId;
+
   const handleStart = () => {
     const totalInnings = form.innings === 'Custom'
       ? (parseInt(form.customInnings, 10) || 7)
@@ -104,18 +118,35 @@ export default function NewGame({ onNavigate }) {
           <div className={styles.teamsGrid}>
             <div>
               <label className={styles.label}>Equipo Local</label>
-              <select className={styles.select} value={form.homeTeamId} onChange={e => set('homeTeamId', e.target.value)}>
-                {MOCK_TEAMS.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+              <select
+                className={styles.select}
+                value={form.homeTeamId}
+                onChange={e => handleTeamChange('home', e.target.value)}
+              >
+                {MOCK_TEAMS.filter(t => t.id !== form.awayTeamId).map(t => (
+                  <option key={t.id} value={t.id}>{t.name}</option>
+                ))}
               </select>
             </div>
             <div className={styles.vs}>VS</div>
             <div>
               <label className={styles.label}>Equipo Visitante</label>
-              <select className={styles.select} value={form.awayTeamId} onChange={e => set('awayTeamId', e.target.value)}>
-                {MOCK_TEAMS.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+              <select
+                className={styles.select}
+                value={form.awayTeamId}
+                onChange={e => handleTeamChange('away', e.target.value)}
+              >
+                {MOCK_TEAMS.filter(t => t.id !== form.homeTeamId).map(t => (
+                  <option key={t.id} value={t.id}>{t.name}</option>
+                ))}
               </select>
             </div>
           </div>
+          {sameTeam && (
+            <div className={styles.sameTeamWarn}>
+              Home and Away teams must be different.
+            </div>
+          )}
         </div>
 
         <div className={styles.divider} />
@@ -202,7 +233,7 @@ export default function NewGame({ onNavigate }) {
         </div>
       </Card>
 
-      <Button size="xl" fullWidth onClick={handleStart}>
+      <Button size="xl" fullWidth onClick={handleStart} disabled={sameTeam}>
         Comenzar Juego →
       </Button>
     </div>
