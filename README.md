@@ -18,6 +18,17 @@ npm run build     # production bundle (output: dist/)
 npm run preview   # preview production build locally
 ```
 
+## Sample Data
+
+Seed rosters and demo game data are inspired by the real Dominican softball scorebook
+**"Hoja Apunte Centro Veron VS Seibo.xlsx"**:
+
+- **Centro Verón** uses real player names from the workbook (28-player roster)
+- **Triple A** uses real player names from the workbook (13-player roster)
+- A demo completed game (Centro Verón 7 – Triple A 0) provides realistic Stats and Game Summary data
+- Play codes cover all codes from the Excel workbook; ground-out codes (4-3, 6-3 etc.) are stored as `GO43`, `GO63` to avoid Excel serial-number conversion issues
+- `H4` (Excel HR alias) is supported and maps to home-run behavior
+
 ## Features
 
 - **Live scoring console** — unified current-situation card (batter + bases diamond); quick-play row (1B, 2B, HR, BB, K, 4-3, F8, Error) as primary input; categorized tabs below; desktop two-column layout

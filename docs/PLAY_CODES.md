@@ -1,114 +1,166 @@
 # Play Codes Reference
 
-This document describes all play result codes used in Dugout Scorebook.
+This document describes all play result codes used in Centro Verón Scorebook.
+Codes are aligned with the Excel scorebook "Hoja Apunte Centro Veron VS Seibo.xlsx".
 
-## Important Design Note
+## Critical Design Rule — No Free-Text Input
 
-> **Do NOT use free-text input for play codes in the UI.**
-> 
-> Codes like `4-3` or `6-3` look like date ranges or arithmetic to spreadsheets and some input fields. Always use dedicated buttons or dropdowns in the scoring interface.
+> **NEVER enter play codes as free text in any UI field.**
+>
+> Codes like `4-3`, `6-3`, or `1-3` look like date ranges or arithmetic to
+> spreadsheets. Excel silently converts them to serial numbers:
+>
+> | Typed | Excel reads |
+> |-------|-------------|
+> | 4-3   | 46118       |
+> | 6-3   | 46082       |
+> | 1-3   | 46086       |
+> | 6-5   | 46113       |
+>
+> **This app avoids the problem entirely by using buttons and dropdowns.**
+> The internal code string (`GO43`, `GO63`, etc.) never appears in a text input.
 
 ---
 
 ## Hits
 
-| Code | Label | Description            |
-|------|-------|------------------------|
-| H1   | 1B    | Single                 |
-| H2   | 2B    | Double                 |
-| H3   | 3B    | Triple                 |
-| HR   | HR    | Home Run               |
+| Code | Label | Description                     |
+|------|-------|---------------------------------|
+| H1   | 1B    | Sencillo (Single)               |
+| H2   | 2B    | Doble (Double)                  |
+| H3   | 3B    | Triple                          |
+| HR   | HR    | Jonrón (Home Run)               |
+| H4   | H4    | Jonrón — alias Excel (= HR)     |
+
+> `H4` is an alias for `HR` used in some Dominican scorebooks. Both behave identically in the scoring engine.
 
 ---
 
 ## Walks & Special Reaches
 
-| Code | Label | Description            |
-|------|-------|------------------------|
-| BB   | BB    | Base on Balls          |
-| IBB  | IBB   | Intentional Walk       |
-| HP   | HBP   | Hit by Pitch           |
-| FC   | FC    | Fielder's Choice       |
+| Code | Label | Description                      |
+|------|-------|----------------------------------|
+| BB   | BB    | Base por Bolas (Walk)            |
+| IBB  | IBB   | Base Intencional (Intentional BB)|
+| HP   | HBP   | Golpeado por Lanzamiento (HBP)   |
+| FC   | FC    | Jugada de Selección (Fielder's Choice) |
+
+> `HP` is stored internally as `HP` but displays as `HBP` to match Excel notation.
 
 ---
 
 ## Outs – Strikeouts
 
-| Code | Label | Description            |
-|------|-------|------------------------|
-| K    | K     | Strikeout (swinging)   |
-| KL   | K L   | Strikeout Looking      |
+| Code | Label | Description             |
+|------|-------|-------------------------|
+| K    | K     | Ponche (swinging)       |
+| KL   | K L   | Ponche llamado (looking)|
 
 ---
 
-## Outs – Fly Outs (by position number)
+## Outs – Fly Outs (by fielding position)
 
-| Code | Label | Description            |
-|------|-------|------------------------|
-| F7   | F7    | Fly Out to Left Field  |
-| F8   | F8    | Fly Out to Center      |
-| F9   | F9    | Fly Out to Right Field |
-| F3   | F3    | Fly Out to First Base  |
+| Code | Label | Position         |
+|------|-------|------------------|
+| F1   | F1    | Pitcher          |
+| F2   | F2    | Cátcher          |
+| F3   | F3    | Primera Base     |
+| F4   | F4    | Segunda Base     |
+| F5   | F5    | Tercera Base     |
+| F6   | F6    | Torpedero (SS)   |
+| F7   | F7    | Jardín Izquierdo |
+| F8   | F8    | Jardín Central   |
+| F9   | F9    | Jardín Derecho   |
 
 ---
 
 ## Outs – Ground Outs (throw sequence)
 
-| Code  | Label | Description            |
-|-------|-------|------------------------|
-| GO13  | 1-3   | Pitcher to First       |
-| GO43  | 4-3   | Second to First        |
-| GO53  | 5-3   | Third to First         |
-| GO63  | 6-3   | Shortstop to First     |
-| GO64  | 6-4   | Shortstop to Second    |
-| GO46  | 4-6   | Second to Shortstop    |
+Internal code prefix `GO` prevents Excel date-conversion issues.
+
+| Code  | Label | Description               |
+|-------|-------|---------------------------|
+| GO13  | 1-3   | Pitcher a Primera         |
+| GO14  | 1-4   | Pitcher a Segunda         |
+| GO16  | 1-6   | Pitcher a SS              |
+| GO23  | 2-3   | Cátcher a Primera         |
+| GO3U  | 3U    | Primera sin asistencia    |
+| GO31  | 3-1   | Primera a Pitcher         |
+| GO34  | 3-4   | Primera a Segunda         |
+| GO41  | 4-1   | Segunda a Pitcher         |
+| GO43  | 4-3   | Segunda a Primera ★       |
+| GO46  | 4-6   | Segunda a SS              |
+| GO52  | 5-2   | Tercera a Cátcher         |
+| GO53  | 5-3   | Tercera a Primera ★       |
+| GO54  | 5-4   | Tercera a Segunda         |
+| GO63  | 6-3   | SS a Primera ★            |
+| GO64  | 6-4   | SS a Segunda              |
+| GO65  | 6-5   | SS a Tercera              |
+
+★ = most common in Dominican informal softball (prioritized in quick buttons).
 
 ---
 
 ## Double Plays & Triple Plays
 
-| Code | Label | Description            |
-|------|-------|------------------------|
-| DP   | DP    | Double Play            |
-| TP   | TP    | Triple Play            |
+| Code | Label | Description |
+|------|-------|-------------|
+| DP   | DP    | Doble Play  |
+| TP   | TP    | Triple Play |
+
+---
+
+## Generic Out
+
+| Code | Label | Description                           |
+|------|-------|---------------------------------------|
+| O    | O     | Out genérico — used in Excel "O" notation |
 
 ---
 
 ## Errors (by fielding position)
 
-| Code | Label | Position               |
-|------|-------|------------------------|
-| E1   | E1    | Pitcher                |
-| E2   | E2    | Catcher                |
-| E3   | E3    | First Base             |
-| E4   | E4    | Second Base            |
-| E5   | E5    | Third Base             |
-| E6   | E6    | Shortstop              |
-| E7   | E7    | Left Field             |
-| E8   | E8    | Center Field           |
-| E9   | E9    | Right Field            |
+| Code | Label | Position        |
+|------|-------|-----------------|
+| E1   | E1    | Pitcher         |
+| E2   | E2    | Cátcher         |
+| E3   | E3    | Primera Base    |
+| E4   | E4    | Segunda Base    |
+| E5   | E5    | Tercera Base    |
+| E6   | E6    | Torpedero (SS)  |
+| E7   | E7    | Jardín Izquierdo|
+| E8   | E8    | Jardín Central  |
+| E9   | E9    | Jardín Derecho  |
 
 ---
 
 ## Sacrifices
 
-| Code | Label | Description            |
-|------|-------|------------------------|
-| SF   | SF    | Sacrifice Fly          |
-| SAC  | SAC   | Sacrifice Bunt         |
+| Code | Label | Description              |
+|------|-------|--------------------------|
+| SF   | SF    | Fly de Sacrificio        |
+| SAC  | SAC   | Toque de Sacrificio      |
+
+---
+
+## Other
+
+| Code  | Label | Description                |
+|-------|-------|----------------------------|
+| OTHER | Otro  | Jugada especial (manual)   |
 
 ---
 
 ## Fielding Position Numbers
 
-| Number | Position       |
-|--------|----------------|
-| 1      | Pitcher        |
-| 2      | Catcher        |
-| 3      | First Base     |
-| 4      | Second Base    |
-| 5      | Third Base     |
-| 6      | Shortstop      |
-| 7      | Left Field     |
-| 8      | Center Field   |
-| 9      | Right Field    |
+| # | Position           |
+|---|--------------------|
+| 1 | Pitcher            |
+| 2 | Cátcher            |
+| 3 | Primera Base       |
+| 4 | Segunda Base       |
+| 5 | Tercera Base       |
+| 6 | Torpedero (SS)     |
+| 7 | Jardín Izquierdo   |
+| 8 | Jardín Central     |
+| 9 | Jardín Derecho     |

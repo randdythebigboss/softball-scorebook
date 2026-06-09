@@ -16,9 +16,9 @@ export default function NewGame({ onNavigate }) {
 
   const [form, setForm] = useState({
     date: new Date().toISOString().split('T')[0],
-    location: 'Estadio Juan Marichal',
-    homeTeamId: 'team-titanes',
-    awayTeamId: 'team-veron',
+    location: 'Estadio Verón',
+    homeTeamId: 'team-veron',
+    awayTeamId: 'team-triplea',
     type: 'Liga',
     innings: 7,
     customInnings: '',
