@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Search, Filter } from 'lucide-react';
-import { MOCK_PLAYERS, MOCK_TEAMS } from '../data/mockData';
+import { MOCK_PLAYERS } from '../data/mockData';
+import { useTeams } from '../hooks/useTeams';
 import { calcAVG } from '../utils/stats';
 import StatBadge from '../components/ui/StatBadge';
 import SectionHeader from '../components/ui/SectionHeader';
@@ -9,6 +10,7 @@ import styles from './Players.module.css';
 export default function Players() {
   const [search, setSearch] = useState('');
   const [teamFilter, setTeamFilter] = useState('all');
+  const { teams } = useTeams();
 
   const filtered = MOCK_PLAYERS.filter(p => {
     const matchTeam = teamFilter === 'all' || p.teamId === teamFilter;
@@ -43,7 +45,7 @@ export default function Players() {
             onChange={e => setTeamFilter(e.target.value)}
           >
             <option value="all">Todos los equipos</option>
-            {MOCK_TEAMS.map(t => (
+            {teams.map(t => (
               <option key={t.id} value={t.id}>{t.name}</option>
             ))}
           </select>
@@ -54,7 +56,7 @@ export default function Players() {
 
       <div className={styles.list}>
         {filtered.map(player => {
-          const team = MOCK_TEAMS.find(t => t.id === player.teamId);
+          const team = teams.find(t => t.id === player.teamId);
           const avg = calcAVG(player.stats.hits, player.stats.ab);
           return (
             <div key={player.id} className={styles.card}>

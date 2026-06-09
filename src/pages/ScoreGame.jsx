@@ -143,6 +143,12 @@ export default function ScoreGame({ onNavigate }) {
             battingTeam={battingTeam}
           />
 
+          {!currentPlayer && !isOver && (
+            <div className={styles.noLineup}>
+              No hay alineación configurada. Ve a la página de Alineación para agregar jugadores antes de puntuar.
+            </div>
+          )}
+
           {/* 2. Quick plays — PRIMARY input area */}
           <div className={styles.quickPanel}>
             <div className={styles.quickHeader}>

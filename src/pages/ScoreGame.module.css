@@ -25,6 +25,16 @@
   min-width: 0;
 }
 
+/* ── No-lineup notice ── */
+.noLineup {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: var(--radius-md);
+  color: #92400e;
+  font-size: 0.875rem;
+  padding: 10px var(--spacing-md);
+}
+
 /* ── Quick Plays — PRIMARY input area ── */
 .quickPanel {
   background: var(--color-white);

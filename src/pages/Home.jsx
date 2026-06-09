@@ -32,12 +32,12 @@ export default function Home({ onNavigate, currentGame }) {
           </div>
           <div className={styles.heroRecord}>
             <div className={styles.heroStat}>
-              <span className={styles.heroStatVal}>{mainTeam?.stats.wins}</span>
+              <span className={styles.heroStatVal}>{mainTeam?.stats?.wins}</span>
               <span className={styles.heroStatLbl}>V</span>
             </div>
             <span className={styles.heroDash}>·</span>
             <div className={styles.heroStat}>
-              <span className={styles.heroStatValMuted}>{mainTeam?.stats.losses}</span>
+              <span className={styles.heroStatValMuted}>{mainTeam?.stats?.losses}</span>
               <span className={styles.heroStatLbl}>D</span>
             </div>
           </div>
@@ -113,10 +113,10 @@ export default function Home({ onNavigate, currentGame }) {
         {/* Right / Side column */}
         <div className={styles.sideCol}>
           <div className={styles.kpiGrid}>
-            <KpiCard label="Jugados"   value={mainTeam?.stats.gamesPlayed} icon={Activity} />
-            <KpiCard label="Victorias" value={mainTeam?.stats.wins}         icon={Trophy} accent />
-            <KpiCard label="Derrotas"  value={mainTeam?.stats.losses}       icon={TrendingUp} />
-            <KpiCard label="Carreras"  value={mainTeam?.stats.runsScored}   icon={Users} />
+            <KpiCard label="Jugados"   value={mainTeam?.stats?.gamesPlayed} icon={Activity} />
+            <KpiCard label="Victorias" value={mainTeam?.stats?.wins}         icon={Trophy} accent />
+            <KpiCard label="Derrotas"  value={mainTeam?.stats?.losses}       icon={TrendingUp} />
+            <KpiCard label="Carreras"  value={mainTeam?.stats?.runsScored}   icon={Users} />
           </div>
 
           <section>

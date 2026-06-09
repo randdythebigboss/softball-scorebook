@@ -85,7 +85,7 @@ function TeamStats({ allGames, teams }) {
                   <td>{calcWinPct(s.wins, s.losses)}</td>
                   <td>{s.runsScored}</td>
                   <td>{s.runsAllowed}</td>
-                  <td className={diff.startsWith('+') ? styles.pos : styles.neg}>{diff}</td>
+                  <td className={diff.startsWith('+') ? styles.pos : diff.startsWith('-') ? styles.neg : ''}>{diff}</td>
                 </tr>
               );
             })}

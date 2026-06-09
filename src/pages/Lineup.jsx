@@ -36,7 +36,6 @@ function slotsToLineup(slots) {
 // ─── Page ──────────────────────────────────────────────────────────────────────
 
 export default function Lineup({ onNavigate }) {
-  // Use hook directly so we always read from localStorage after NewGame writes.
   const [currentGame, setCurrentGame] = useLocalStorage('currentGame', null);
   const [saved, setSaved] = useState(false);
   const { getTeamById } = useTeams();
@@ -56,27 +55,27 @@ export default function Lineup({ onNavigate }) {
   const homePlayers = MOCK_PLAYERS.filter(p => p.teamId === game.homeTeamId && p.active);
   const awayPlayers = MOCK_PLAYERS.filter(p => p.teamId === game.awayTeamId && p.active);
 
-  const homeActive    = homeSlots.filter(s => s.playerId).length;
-  const awayActive    = awaySlots.filter(s => s.playerId).length;
-  const homeDupIds    = getDupIds(homeSlots);
-  const awayDupIds    = getDupIds(awaySlots);
+  const homeActive     = homeSlots.filter(s => s.playerId).length;
+  const awayActive     = awaySlots.filter(s => s.playerId).length;
+  const homeDupIds     = getDupIds(homeSlots);
+  const awayDupIds     = getDupIds(awaySlots);
   const homeMissingPos = homeSlots.some(s => s.playerId && !s.position);
   const awayMissingPos = awaySlots.some(s => s.playerId && !s.position);
 
   const saveBlocker = !currentGame
-    ? 'No active game found. Create a new game first.'
+    ? 'No hay juego activo. Crea un nuevo juego primero.'
     : homeActive < MIN_BATTERS
-      ? `Home Team needs at least ${MIN_BATTERS} active batters (${homeActive}/${MIN_BATTERS}).`
+      ? `El equipo Local necesita al menos ${MIN_BATTERS} bateadores (${homeActive}/${MIN_BATTERS}).`
       : awayActive < MIN_BATTERS
-        ? `Away Team needs at least ${MIN_BATTERS} active batters (${awayActive}/${MIN_BATTERS}).`
+        ? `El equipo Visitante necesita al menos ${MIN_BATTERS} bateadores (${awayActive}/${MIN_BATTERS}).`
         : homeDupIds.length > 0
-          ? 'Home lineup has duplicate players.'
+          ? 'La alineación Local tiene jugadores duplicados.'
           : awayDupIds.length > 0
-            ? 'Away lineup has duplicate players.'
+            ? 'La alineación Visitante tiene jugadores duplicados.'
             : homeMissingPos
-              ? 'All Home batters must have a position assigned.'
+              ? 'Todos los bateadores del equipo Local deben tener posición asignada.'
               : awayMissingPos
-                ? 'All Away batters must have a position assigned.'
+                ? 'Todos los bateadores del equipo Visitante deben tener posición asignada.'
                 : null;
 
   const canSave = saveBlocker === null;
@@ -101,18 +100,18 @@ export default function Lineup({ onNavigate }) {
 
   return (
     <div className={styles.page}>
-      <SectionHeader title="Lineup Editor" />
+      <SectionHeader title="Editor de Alineación" />
 
       {!currentGame && (
         <div className={styles.notice}>
-          No active game found. Create a new game first.
+          No hay juego activo. Crea un nuevo juego primero.
         </div>
       )}
 
       <div className={styles.panels}>
         <LineupPanel
           team={awayTeam}
-          label="Away"
+          label="Visitante"
           players={awayPlayers}
           slots={awaySlots}
           dupIds={awayDupIds}
@@ -120,7 +119,7 @@ export default function Lineup({ onNavigate }) {
         />
         <LineupPanel
           team={homeTeam}
-          label="Home"
+          label="Local"
           players={homePlayers}
           slots={homeSlots}
           dupIds={homeDupIds}
@@ -133,14 +132,14 @@ export default function Lineup({ onNavigate }) {
           <div className={styles.notice}>{saveBlocker}</div>
         )}
         {saved && (
-          <div className={styles.success}>Lineups saved successfully!</div>
+          <div className={styles.success}>¡Alineaciones guardadas!</div>
         )}
         <Button size="xl" fullWidth onClick={handleSave} disabled={!canSave}>
-          Save Both Lineups
+          Guardar Alineaciones
         </Button>
         {saved && (
           <Button size="xl" fullWidth variant="secondary" onClick={() => onNavigate('score-game')}>
-            Go to Score Game →
+            Ir a Puntuar →
           </Button>
         )}
       </div>
@@ -184,22 +183,24 @@ function LineupPanel({ team, label, players, slots, dupIds, onChange }) {
   return (
     <div className={styles.panel}>
       {/* Header */}
-      <div className={styles.panelHeader} style={{ background: team?.color }}>
-        <div className={styles.panelLogo}>{team?.shortName?.slice(0, 2)}</div>
+      <div className={styles.panelHeader} style={{ background: team?.color || 'var(--color-primary)' }}>
+        <div className={styles.panelLogo}>{team?.shortName?.slice(0, 2) || '??'}</div>
         <div className={styles.panelInfo}>
           <div className={styles.panelTeam}>{team?.name || label}</div>
-          <div className={styles.panelLabel}>{label} · {activeCount} batter{activeCount !== 1 ? 's' : ''}</div>
+          <div className={styles.panelLabel}>
+            {label} · {activeCount} bateador{activeCount !== 1 ? 'es' : ''}
+          </div>
         </div>
         <div className={styles.panelBtns}>
-          <button className={styles.panelBtn} onClick={autoFill} type="button">Auto Fill</button>
-          <button className={styles.panelBtn} onClick={clearSlots} type="button">Clear</button>
+          <button className={styles.panelBtn} onClick={autoFill} type="button">Auto Llenar</button>
+          <button className={styles.panelBtn} onClick={clearSlots} type="button">Limpiar</button>
         </div>
       </div>
 
       {/* No-player guidance */}
       {players.length === 0 && (
         <div className={styles.notice}>
-          Este equipo no tiene jugadores aún. Necesitas agregar jugadores antes de poder crear la alineación.
+          Este equipo no tiene jugadores aún. Los equipos nuevos necesitan jugadores antes de poder guardar la alineación.
         </div>
       )}
 
@@ -215,7 +216,7 @@ function LineupPanel({ team, label, players, slots, dupIds, onChange }) {
                 value={slot.playerId}
                 onChange={e => update(idx, 'playerId', e.target.value)}
               >
-                <option value="">— Select —</option>
+                <option value="">— Seleccionar —</option>
                 {players.map(p => (
                   <option key={p.id} value={p.id}>
                     #{p.number} {p.lastName}
@@ -237,7 +238,7 @@ function LineupPanel({ team, label, players, slots, dupIds, onChange }) {
                 onClick={() => removeSlot(idx)}
                 disabled={slots.length <= MIN_BATTERS}
                 type="button"
-                aria-label="Remove slot"
+                aria-label="Quitar turno"
               >
                 ×
               </button>
@@ -249,7 +250,7 @@ function LineupPanel({ team, label, players, slots, dupIds, onChange }) {
       {/* Dup warning */}
       {dupIds.length > 0 && (
         <div className={styles.dupWarn}>
-          This player is already in the lineup.
+          Este jugador ya está en la alineación.
         </div>
       )}
 
@@ -261,7 +262,7 @@ function LineupPanel({ team, label, players, slots, dupIds, onChange }) {
           disabled={slots.length >= MAX_SLOTS}
           type="button"
         >
-          + Add Batting Slot
+          + Agregar turno al bate
         </button>
         <button
           className={styles.removeLastBtn}
@@ -269,14 +270,14 @@ function LineupPanel({ team, label, players, slots, dupIds, onChange }) {
           disabled={slots.length <= MIN_BATTERS}
           type="button"
         >
-          Remove Slot
+          Quitar turno
         </button>
       </div>
 
       {/* Bench */}
       {benchPlayers.length > 0 && (
         <div className={styles.bench}>
-          <span className={styles.benchTitle}>Bench (not in batting order)</span>
+          <span className={styles.benchTitle}>Suplentes (sin turno al bate)</span>
           <div className={styles.benchList}>
             {benchPlayers.map(p => (
               <span key={p.id} className={styles.benchPlayer}>
