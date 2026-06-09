@@ -4,15 +4,17 @@ import SectionHeader from '../components/ui/SectionHeader';
 import GameSummaryCard from '../components/dashboards/GameSummaryCard';
 import PlayerStatsCard from '../components/dashboards/PlayerStatsCard';
 import Button from '../components/ui/Button';
-import { MOCK_TEAMS, MOCK_GAMES, MOCK_PLAYERS } from '../data/mockData';
+import { MOCK_GAMES, MOCK_PLAYERS } from '../data/mockData';
+import { useTeams } from '../hooks/useTeams';
 import { getTopPlayers } from '../utils/stats';
 import styles from './Home.module.css';
 
-const mainTeam = MOCK_TEAMS.find(t => t.isMainTeam);
 const recentGames = MOCK_GAMES.slice(0, 3);
-const topPlayers = getTopPlayers(MOCK_PLAYERS.filter(p => p.teamId === mainTeam?.id), 'avg', 3);
 
 export default function Home({ onNavigate, currentGame }) {
+  const { teams } = useTeams();
+  const mainTeam = teams.find(t => t.isMainTeam);
+  const topPlayers = getTopPlayers(MOCK_PLAYERS.filter(p => p.teamId === mainTeam?.id), 'avg', 3);
   const hasCurrentGame = currentGame && currentGame.status === 'in_progress';
 
   return (
@@ -70,8 +72,8 @@ export default function Home({ onNavigate, currentGame }) {
             />
             <div className={styles.gamesList}>
               {recentGames.map(game => {
-                const home = MOCK_TEAMS.find(t => t.id === game.homeTeamId);
-                const away = MOCK_TEAMS.find(t => t.id === game.awayTeamId);
+                const home = teams.find(t => t.id === game.homeTeamId);
+                const away = teams.find(t => t.id === game.awayTeamId);
                 return (
                   <GameSummaryCard
                     key={game.id}
@@ -124,7 +126,7 @@ export default function Home({ onNavigate, currentGame }) {
             />
             <div className={styles.playersList}>
               {topPlayers.map((player, i) => {
-                const team = MOCK_TEAMS.find(t => t.id === player.teamId);
+                const team = teams.find(t => t.id === player.teamId);
                 return <PlayerStatsCard key={player.id} player={player} team={team} rank={i + 1} />;
               })}
             </div>

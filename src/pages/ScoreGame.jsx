@@ -2,7 +2,8 @@ import { useState } from 'react';
 import Scoreboard from '../components/scorekeeping/Scoreboard';
 import CurrentSituation from '../components/scorekeeping/CurrentSituation';
 import PlayResultButton from '../components/scorekeeping/PlayResultButton';
-import { MOCK_TEAMS, MOCK_PLAYERS, MOCK_HOME_LINEUP, MOCK_AWAY_LINEUP, MOCK_CURRENT_GAME } from '../data/mockData';
+import { MOCK_PLAYERS, MOCK_HOME_LINEUP, MOCK_AWAY_LINEUP, MOCK_CURRENT_GAME } from '../data/mockData';
+import { useTeams } from '../hooks/useTeams';
 import { PLAY_CODES, SCORING_BUTTONS } from '../data/playCodes';
 import {
   applyPlayToGameState,
@@ -47,11 +48,12 @@ export default function ScoreGame({ onNavigate }) {
   const [, setCompletedGames] = useLocalStorage('dugout_completed_games', []);
   const [activeGroup, setActiveGroup] = useState(0);
   const [noteText, setNoteText] = useState('');
+  const { getTeamById } = useTeams();
 
   const game = currentGame || MOCK_CURRENT_GAME;
 
-  const homeTeam = MOCK_TEAMS.find(t => t.id === game.homeTeamId);
-  const awayTeam  = MOCK_TEAMS.find(t => t.id === game.awayTeamId);
+  const homeTeam = getTeamById(game.homeTeamId);
+  const awayTeam  = getTeamById(game.awayTeamId);
   const battingTeam = game.isTopInning ? awayTeam : homeTeam;
 
   const homeLineup = (game.homeLineup && game.homeLineup.length > 0) ? game.homeLineup : MOCK_HOME_LINEUP;

@@ -1,5 +1,6 @@
 import { Trophy } from 'lucide-react';
-import { MOCK_TEAMS, MOCK_GAMES, MOCK_PLAYERS } from '../data/mockData';
+import { MOCK_GAMES, MOCK_PLAYERS } from '../data/mockData';
+import { useTeams } from '../hooks/useTeams';
 import { formatDate, getWinner } from '../utils/gameHelpers';
 import { calcAVG } from '../utils/stats';
 import { useLocalStorage } from '../hooks/useLocalStorage';
@@ -9,6 +10,7 @@ import styles from './GameSummary.module.css';
 
 export default function GameSummary({ onNavigate }) {
   const [completedGames] = useLocalStorage('dugout_completed_games', []);
+  const { teams } = useTeams();
 
   const realGame = completedGames && completedGames.length > 0
     ? completedGames[completedGames.length - 1]
@@ -16,9 +18,9 @@ export default function GameSummary({ onNavigate }) {
   const isDemo = !realGame;
   const game = realGame || MOCK_GAMES[0];
 
-  const homeTeam = MOCK_TEAMS.find(t => t.id === game.homeTeamId);
-  const awayTeam  = MOCK_TEAMS.find(t => t.id === game.awayTeamId);
-  const winner = getWinner(game, MOCK_TEAMS);
+  const homeTeam = teams.find(t => t.id === game.homeTeamId);
+  const awayTeam  = teams.find(t => t.id === game.awayTeamId);
+  const winner = getWinner(game, teams);
   const isHomeWin = game.homeScore > game.awayScore;
 
   const numInnings = game.totalInnings || game.innings || 7;
@@ -119,7 +121,7 @@ export default function GameSummary({ onNavigate }) {
       <div className={styles.performers}>
         {topPerformers.map(({ player, stats }) => {
           if (!player) return null;
-          const team = MOCK_TEAMS.find(t => t.id === player.teamId);
+          const team = teams.find(t => t.id === player.teamId);
           const avg = calcAVG(stats.hits, stats.ab);
           return (
             <div key={player.id} className={styles.performer}>

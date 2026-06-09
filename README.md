@@ -22,6 +22,7 @@ npm run preview   # preview production build locally
 
 - **Live scoring console** — unified current-situation card (batter + bases diamond); quick-play row (1B, 2B, HR, BB, K, 4-3, F8, Error) as primary input; categorized tabs below; desktop two-column layout
 - **Editable lineups** — configure batting order and positions for both teams before scoring; Auto Fill from roster available
+- **Local team management** — add and edit teams directly from the Teams page; changes are stored in localStorage under `cv_scorebook_teams` and appear immediately in New Game
 - **Base tracking** — visual diamond updates automatically after each play
 - **Undo last play** — one tap to revert the most recent play (up to 10 levels)
 - **Inning-by-inning line score** — real-time scoreboard header
@@ -37,6 +38,7 @@ npm run preview   # preview production build locally
 |-----|----------|
 | `currentGame` | Active in-progress game object, including `scorebookNotes[]` (null when no game is running) |
 | `dugout_completed_games` | Array of finished game objects (status: "final"), each may include saved notes |
+| `cv_scorebook_teams` | User-managed team list; seeded from mock data on first use. Add/edit teams via the Teams page. |
 
 ## Limitations & Assumptions
 
@@ -46,7 +48,9 @@ npm run preview   # preview production build locally
 - **Run tracking per runner** — individual runner scoring is not tracked; only HR awards the batter a run in the stats
 - **No pitcher stats** — pitching stats (IP, ER, SO) are out of scope for v1
 - **No authentication** — all data is local to the device and browser
-- **Mock rosters** — all mock teams now include 12 active players, enough to test a full game flow with any team combination
+- **Mock rosters** — all mock teams include 12 active players, enough to test a full game flow
+- **New teams have no players** — teams created via the Teams page start with zero players. Player management is not yet implemented; new teams will require players before a lineup can be saved. Use the four mock teams for a full end-to-end game simulation.
+- **All data is localStorage only** — full backend/database integration is future work
 
 ## Roadmap
 

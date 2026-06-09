@@ -62,8 +62,13 @@
   padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
 }
 
-@media (min-width: 480px) {
+/* 8-col at 560px — at 480px buttons would be ~49px wide, too cramped */
+@media (min-width: 560px) {
   .quickGrid { grid-template-columns: repeat(8, 1fr); }
+}
+
+@media (max-width: 479px) {
+  .quickHint { display: none; }
 }
 
 .quickBtn {

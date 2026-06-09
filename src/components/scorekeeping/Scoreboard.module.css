@@ -213,3 +213,14 @@
   border-color: var(--color-danger);
   box-shadow: 0 0 8px rgba(220,38,38,0.6);
 }
+
+/* ── Mobile responsive — compact score strip at 390px ── */
+@media (max-width: 479px) {
+  .scoreStrip {
+    gap: var(--spacing-md);
+    padding: 10px var(--spacing-md);
+  }
+  .teamBlock { gap: 7px; }
+  .teamAbr { font-size: 12px; }
+  .bigScore { font-size: 40px; }
+}

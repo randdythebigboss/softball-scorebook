@@ -3,7 +3,7 @@ import { Calendar, MapPin, Users, Settings } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Card from '../components/ui/Card';
 import SectionHeader from '../components/ui/SectionHeader';
-import { MOCK_TEAMS } from '../data/mockData';
+import { useTeams } from '../hooks/useTeams';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import styles from './NewGame.module.css';
 
@@ -12,6 +12,7 @@ const INNINGS_OPTIONS = [5, 6, 7, 9, 'Custom'];
 
 export default function NewGame({ onNavigate }) {
   const [, setCurrentGame] = useLocalStorage('currentGame', null);
+  const { teams } = useTeams();
 
   const [form, setForm] = useState({
     date: new Date().toISOString().split('T')[0],
@@ -28,21 +29,10 @@ export default function NewGame({ onNavigate }) {
 
   const set = (key, val) => setForm(f => ({ ...f, [key]: val }));
 
-  const handleTeamChange = (side, newId) => {
-    setForm(f => {
-      const next = { ...f, [`${side}TeamId`]: newId };
-      const otherKey = side === 'home' ? 'awayTeamId' : 'homeTeamId';
-      if (next[otherKey] === newId) {
-        const alt = MOCK_TEAMS.find(t => t.id !== newId);
-        if (alt) next[otherKey] = alt.id;
-      }
-      return next;
-    });
-  };
-
   const sameTeam = form.homeTeamId === form.awayTeamId;
 
   const handleStart = () => {
+    if (sameTeam) return;
     const totalInnings = form.innings === 'Custom'
       ? (parseInt(form.customInnings, 10) || 7)
       : form.innings;
@@ -121,9 +111,9 @@ export default function NewGame({ onNavigate }) {
               <select
                 className={styles.select}
                 value={form.homeTeamId}
-                onChange={e => handleTeamChange('home', e.target.value)}
+                onChange={e => set('homeTeamId', e.target.value)}
               >
-                {MOCK_TEAMS.filter(t => t.id !== form.awayTeamId).map(t => (
+                {teams.map(t => (
                   <option key={t.id} value={t.id}>{t.name}</option>
                 ))}
               </select>
@@ -134,9 +124,9 @@ export default function NewGame({ onNavigate }) {
               <select
                 className={styles.select}
                 value={form.awayTeamId}
-                onChange={e => handleTeamChange('away', e.target.value)}
+                onChange={e => set('awayTeamId', e.target.value)}
               >
-                {MOCK_TEAMS.filter(t => t.id !== form.homeTeamId).map(t => (
+                {teams.map(t => (
                   <option key={t.id} value={t.id}>{t.name}</option>
                 ))}
               </select>
@@ -144,7 +134,7 @@ export default function NewGame({ onNavigate }) {
           </div>
           {sameTeam && (
             <div className={styles.sameTeamWarn}>
-              Home and Away teams must be different.
+              El equipo local y el visitante no pueden ser el mismo.
             </div>
           )}
         </div>

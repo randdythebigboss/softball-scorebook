@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { MOCK_TEAMS, MOCK_PLAYERS } from '../data/mockData';
+import { MOCK_PLAYERS } from '../data/mockData';
+import { useTeams } from '../hooks/useTeams';
 import { POSITIONS } from '../data/playCodes';
 import { initializePlayerGameStats } from '../utils/gameHelpers';
 import { useLocalStorage } from '../hooks/useLocalStorage';
@@ -38,6 +39,7 @@ export default function Lineup({ onNavigate }) {
   // Use hook directly so we always read from localStorage after NewGame writes.
   const [currentGame, setCurrentGame] = useLocalStorage('currentGame', null);
   const [saved, setSaved] = useState(false);
+  const { getTeamById } = useTeams();
 
   const game = currentGame || {
     homeTeamId: 'team-titanes',
@@ -49,8 +51,8 @@ export default function Lineup({ onNavigate }) {
   const [homeSlots, setHomeSlots] = useState(() => lineupToSlots(game.homeLineup));
   const [awaySlots, setAwaySlots] = useState(() => lineupToSlots(game.awayLineup));
 
-  const homeTeam = MOCK_TEAMS.find(t => t.id === game.homeTeamId);
-  const awayTeam  = MOCK_TEAMS.find(t => t.id === game.awayTeamId);
+  const homeTeam = getTeamById(game.homeTeamId);
+  const awayTeam  = getTeamById(game.awayTeamId);
   const homePlayers = MOCK_PLAYERS.filter(p => p.teamId === game.homeTeamId && p.active);
   const awayPlayers = MOCK_PLAYERS.filter(p => p.teamId === game.awayTeamId && p.active);
 
@@ -193,6 +195,13 @@ function LineupPanel({ team, label, players, slots, dupIds, onChange }) {
           <button className={styles.panelBtn} onClick={clearSlots} type="button">Clear</button>
         </div>
       </div>
+
+      {/* No-player guidance */}
+      {players.length === 0 && (
+        <div className={styles.notice}>
+          Este equipo no tiene jugadores aún. Necesitas agregar jugadores antes de poder crear la alineación.
+        </div>
+      )}
 
       {/* Slot rows */}
       <div className={styles.slotList}>

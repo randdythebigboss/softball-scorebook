@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { MOCK_TEAMS, MOCK_PLAYERS, MOCK_GAMES } from '../data/mockData';
+import { MOCK_PLAYERS, MOCK_GAMES } from '../data/mockData';
+import { useTeams } from '../hooks/useTeams';
 import {
   calcAVG, calcWinPct, calcRunDiff,
   buildTeamStatsFromGames, buildPlayerStatsFromGames,
@@ -13,6 +14,7 @@ const TABS = ['Equipos', 'Jugadores', 'Juegos'];
 export default function Stats() {
   const [tab, setTab] = useState(0);
   const [completedGames] = useLocalStorage('dugout_completed_games', []);
+  const { teams } = useTeams();
   const hasRealGames = completedGames && completedGames.length > 0;
   const allGames = hasRealGames ? completedGames : MOCK_GAMES;
 
@@ -38,21 +40,21 @@ export default function Stats() {
         ))}
       </div>
 
-      {tab === 0 && <TeamStats allGames={allGames} />}
-      {tab === 1 && <PlayerStats allGames={allGames} />}
-      {tab === 2 && <GameStats allGames={allGames} />}
+      {tab === 0 && <TeamStats allGames={allGames} teams={teams} />}
+      {tab === 1 && <PlayerStats allGames={allGames} teams={teams} />}
+      {tab === 2 && <GameStats allGames={allGames} teams={teams} />}
     </div>
   );
 }
 
-function TeamStats({ allGames }) {
+function TeamStats({ allGames, teams }) {
   const realStats = buildTeamStatsFromGames(allGames);
 
-  const teams = MOCK_TEAMS.map(team => {
+  const rows = teams.map(team => {
     const real = realStats[team.id];
     const stats = real
       ? real
-      : { gamesPlayed: team.stats.gamesPlayed, wins: team.stats.wins, losses: team.stats.losses, runsScored: team.stats.runsScored, runsAllowed: team.stats.runsAllowed };
+      : { gamesPlayed: team.stats?.gamesPlayed || 0, wins: team.stats?.wins || 0, losses: team.stats?.losses || 0, runsScored: team.stats?.runsScored || 0, runsAllowed: team.stats?.runsAllowed || 0 };
     return { ...team, computed: stats };
   }).sort((a, b) => b.computed.wins - a.computed.wins);
 
@@ -68,7 +70,7 @@ function TeamStats({ allGames }) {
             </tr>
           </thead>
           <tbody>
-            {teams.map(team => {
+            {rows.map(team => {
               const s = team.computed;
               const diff = calcRunDiff(s.runsScored, s.runsAllowed);
               return (
@@ -94,7 +96,7 @@ function TeamStats({ allGames }) {
   );
 }
 
-function PlayerStats({ allGames }) {
+function PlayerStats({ allGames, teams }) {
   const [sortBy, setSortBy] = useState('avg');
   const realPlayerStats = buildPlayerStatsFromGames(allGames);
 
@@ -139,7 +141,7 @@ function PlayerStats({ allGames }) {
           </thead>
           <tbody>
             {sorted.map((p, i) => {
-              const team = MOCK_TEAMS.find(t => t.id === p.teamId);
+              const team = teams.find(t => t.id === p.teamId);
               const s = p.computed;
               return (
                 <tr key={p.id}>
@@ -174,7 +176,7 @@ function PlayerStats({ allGames }) {
   );
 }
 
-function GameStats({ allGames }) {
+function GameStats({ allGames, teams }) {
   const sorted = [...allGames].sort((a, b) => b.date?.localeCompare(a.date));
   return (
     <div className={styles.section}>
@@ -188,8 +190,8 @@ function GameStats({ allGames }) {
           </thead>
           <tbody>
             {sorted.map(game => {
-              const home = MOCK_TEAMS.find(t => t.id === game.homeTeamId);
-              const away = MOCK_TEAMS.find(t => t.id === game.awayTeamId);
+              const home = teams.find(t => t.id === game.homeTeamId);
+              const away = teams.find(t => t.id === game.awayTeamId);
               const homeWin = game.homeScore > game.awayScore;
               return (
                 <tr key={game.id}>
